@@ -15,10 +15,11 @@ module.exports = {
 				border: 'var(--border)',
 				ring: 'var(--ring)',
 				ringOffset: 'var(--ring-offset)',
+
 				secondaryBlack: '#212121',
 			},
 			borderRadius: {
-				base: '5px'
+				base: '0px'
 			},
 			boxShadow: {
 				shadow: 'var(--shadow)'

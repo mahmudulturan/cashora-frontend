@@ -3,10 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
+  
 :root {
-  --main: #88aaee;
+  --main: #FFE14D;
   --overlay: rgba(0, 0, 0, 0.8);
-  --bg: #dfe5f2;
+  --bg: #FCFCF7;
   --bw: #fff;
   --blank: #000;
   --border: #000;
@@ -14,18 +15,20 @@
   --mtext: #000;
   --ring: #000;
   --ring-offset: #fff;
-  --border-radius: 5px;
+
+  --border-radius: 0px;
   --box-shadow-x: 4px;
   --box-shadow-y: 4px;
   --reverse-box-shadow-x: -4px;
   --reverse-box-shadow-y: -4px;
   --base-font-weight: 500;
   --heading-font-weight: 700;
+
   --shadow: var(--box-shadow-x) var(--box-shadow-y) 0px 0px var(--border);
 }
 
 .dark {
-  --bg: #272933;
+  --bg: #374151;
   --bw: #212121;
   --blank: #fff;
   --border: #000;
@@ -33,9 +36,9 @@
   --mtext: #000;
   --ring: #fff;
   --ring-offset: #000;
+
   --shadow: var(--box-shadow-x) var(--box-shadow-y) 0px 0px var(--border);
 }
-
 
 
 
