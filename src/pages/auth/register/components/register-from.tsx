@@ -1,11 +1,11 @@
-import { IdCard, Key, Mail, User } from 'lucide-react';
+import { IdCard, Key, Mail, User, UserCog } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Phone } from 'lucide-react';
 import { FC } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const RegisterForm: FC = () => {
     return (
@@ -76,7 +76,7 @@ const RegisterForm: FC = () => {
             <div>
                 <Label htmlFor="role">Account Type</Label>
                 <div className="relative">
-                    <Key className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
+                    <UserCog className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
                     <Select>
                         <SelectTrigger className="w-full pl-12">
                             <SelectValue placeholder="Select Account Type" />
