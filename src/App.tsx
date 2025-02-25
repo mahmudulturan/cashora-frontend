@@ -7,7 +7,7 @@ import RegisterPage from './pages/auth/register/register-page';
 import RootLayout from './layout/RootLayout';
 import HomePage from './pages/root/home/home-page';
 import SendMoneyPage from './pages/root/send-money/send-money-page';
-
+import AdminPage from './pages/root/admin/admin-page';
 const App: FC = () => {
   return (
     <Routes>
@@ -17,6 +17,7 @@ const App: FC = () => {
         <Route path="about" element={<div>About</div>} />
       </Route>
 
+      <Route path="admin" element={<AdminPage />} />
       <Route element={<AuthLayout />}>
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
