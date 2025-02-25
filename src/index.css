@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-  
+
 :root {
   --main: #FFE14D;
   --overlay: rgba(0, 0, 0, 0.8);
@@ -46,26 +46,31 @@
   * {
     @apply border-border font-spaceGrotesk;
   }
+
   body {
     @apply bg-bg text-text;
+  }
+
+  .wrapper {
+    @apply max-w-6xl mx-auto px-4;
   }
 }
 
 
 @layer components {
   .card-white {
-    @apply bg-white border-[3px] border-border shadow-[4px_4px_0px_0px_rgba(0,0,0,1)];
+    @apply bg-white border-[3px] border-border shadow-shadow;
   }
 
   .card-yellow {
-    @apply bg-[#FFE14D] border-[3px] border-border shadow-[4px_4px_0px_0px_rgba(0,0,0,1)];
+    @apply bg-[#FFE14D] border-[3px] border-border shadow-shadow;
   }
 
   .card-pink {
-    @apply bg-[#FF5C92] border-[3px] border-border shadow-[4px_4px_0px_0px_rgba(0,0,0,1)];
+    @apply bg-[#FF5C92] border-[3px] border-border shadow-shadow;
   }
 
   .card-green {
-    @apply bg-[#00DCA5] border-[3px] border-border shadow-[4px_4px_0px_0px_rgba(0,0,0,1)];
+    @apply bg-[#00DCA5] border-[3px] border-border shadow-shadow;
   }
 }
