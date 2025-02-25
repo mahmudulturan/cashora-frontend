@@ -15,7 +15,6 @@ module.exports = {
 				border: 'var(--border)',
 				ring: 'var(--ring)',
 				ringOffset: 'var(--ring-offset)',
-
 				secondaryBlack: '#212121',
 			},
 			borderRadius: {
@@ -33,6 +32,9 @@ module.exports = {
 			fontWeight: {
 				base: '500',
 				heading: '700',
+			},
+			fontFamily: {
+				redHatText: ['Red Hat Text', 'sans-serif'],
 			},
 		},
 	},
