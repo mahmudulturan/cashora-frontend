@@ -4,7 +4,7 @@ import LoginForm from './components/login-form';
 
 const LoginPage: FC = () => {
     return (
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-lg">
             <div className="text-center mb-8">
                 <Logo />
                 <p className="text-lg">Welcome back! Login to your account.</p>
