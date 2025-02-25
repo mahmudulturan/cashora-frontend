@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowDownToLine, History, Send } from 'lucide-react';
 import { FC } from 'react';
+import { Link } from 'react-router';
 
 const UserQuickActions: FC = () => {
     return (
@@ -9,7 +10,9 @@ const UserQuickActions: FC = () => {
                 <Send className="w-8 h-8 mb-4" />
                 <h3 className="text-xl font-bold mb-2">Send Money</h3>
                 <p className="mb-4">Transfer money to another user account instantly</p>
-                <Button className="w-full">Send Now</Button>
+                <Link to="/send-money">
+                    <Button className="w-full">Send Now</Button>
+                </Link>
             </div>
 
             <div className="card-white rounded-lg p-6">
