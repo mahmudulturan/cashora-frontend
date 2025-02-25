@@ -5,6 +5,7 @@ import { Phone } from 'lucide-react';
 import { FC } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const RegisterForm: FC = () => {
     return (
@@ -72,6 +73,23 @@ const RegisterForm: FC = () => {
                 </div>
             </div>
 
+            <div>
+                <Label htmlFor="role">Account Type</Label>
+                <div className="relative">
+                    <Key className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
+                    <Select>
+                        <SelectTrigger className="w-full pl-12">
+                            <SelectValue placeholder="Select Account Type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectItem value="user">User</SelectItem>
+                                <SelectItem value="agent">Agent</SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </div>
+            </div>
             <div>
                 <Label htmlFor="pin">PIN</Label>
                 <div className="relative">
