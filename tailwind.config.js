@@ -35,7 +35,7 @@ module.exports = {
 				heading: '700',
 			},
 			fontFamily: {
-				redHatText: ['Red Hat Text', 'sans-serif'],
+				spaceGrotesk: ['Space Grotesk', 'sans-serif'],
 			},
 		},
 	},
