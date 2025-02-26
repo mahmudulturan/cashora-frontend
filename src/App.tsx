@@ -10,6 +10,7 @@ import SendMoneyPage from './pages/root/send-money/send-money-page';
 import AdminPage from './pages/dashboard/admin/admin-page';
 import DashboardLayout from './layout/dashboard-layout';
 import TransactionsPage from './pages/dashboard/transactions/transactions-page';
+import ManageUsersPage from './pages/dashboard/manage-users/manage-users-page';
 
 const App: FC = () => {
   return (
@@ -21,6 +22,7 @@ const App: FC = () => {
       </Route>
       <Route path="dashboard" element={<DashboardLayout />}>
         <Route path="admin" element={<AdminPage />} />
+        <Route path="manage-users" element={<ManageUsersPage />} />
         <Route path="transactions" element={<TransactionsPage />} />
       </Route>
       <Route element={<AuthLayout />}>

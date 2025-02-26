@@ -41,7 +41,7 @@ const Sidebar: FC<ISidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
             </div>
             <nav className="flex-1 p-4 space-y-2">
                 <SidebarLink icon={LayoutDashboard} label="Dashboard" to="/dashboard/admin" />
-                <SidebarLink icon={Users} label="Users" to="/dashboard/users" />
+                <SidebarLink icon={Users} label="Users" to="/dashboard/manage-users" />
                 <SidebarLink icon={Building2} label="Agents" to="/dashboard/agents" />
                 <SidebarLink icon={Send} label="Transactions" to="/dashboard/transactions" />
                 <SidebarLink icon={Receipt} label="Reports" to="/dashboard/reports" />
