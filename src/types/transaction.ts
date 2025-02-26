@@ -21,5 +21,6 @@ export interface ITransactionFees {
 export interface ITransactionPayload {
     receiver: string;
     amount: number;
+    pin: string;
     note?: string;
 }

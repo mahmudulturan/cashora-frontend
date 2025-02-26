@@ -1,8 +1,9 @@
-import { ChangeEvent, Dispatch, FC, FormEvent, SetStateAction, useCallback } from 'react';
+import { ChangeEvent, Dispatch, FC, FormEvent, SetStateAction, useCallback, useEffect } from 'react';
 import { Phone, Calculator, ArrowRight, Key } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import HoldButton from '@/components/shared/hold-button';
+import { useSendMoney } from '@/hooks/transaction.hook';
 
 interface ISendMoneyFromProps {
     step: number;
@@ -23,6 +24,9 @@ interface ISendMoneyFromProps {
 
 
 const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirmation, setIsSuccess, formData, setFormData }) => {
+
+    const { mutate: sendMoney, isPending: isSending, isSuccess: isSendSuccess } = useSendMoney();
+
     const calculateFee = (amount: number) => {
         return amount > 100 ? 5 : 0;
     };
@@ -31,7 +35,7 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
-    
+
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -41,9 +45,21 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
     };
 
     const handleComplete = useCallback(() => {
-        setShowConfirmation(true);
-        setIsSuccess(true);
-    }, [setShowConfirmation, setIsSuccess]);
+        sendMoney({
+            receiver: formData.recipient,
+            amount: Number(formData.amount),
+            pin: formData.pin,
+        });
+
+    }, [setShowConfirmation, setIsSuccess, formData, sendMoney]);
+
+
+    useEffect(() => {
+        if (isSendSuccess && isSending) {
+            setShowConfirmation(true);
+            setIsSuccess(true);
+        }
+    }, [isSendSuccess, isSending]);
 
     return (
         <form onSubmit={handleSubmit} className="card-white rounded-lg p-8">
@@ -139,7 +155,7 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
                     </div>
 
                     <div className="relative">
-                        <HoldButton onComplete={handleComplete} disabled={formData.pin.length !== 5} />
+                        <HoldButton onComplete={handleComplete} disabled={formData.pin.length !== 5 || isSending} loading={isSending} />
                     </div>
                 </div>
             )}

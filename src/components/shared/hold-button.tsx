@@ -4,9 +4,10 @@ import { Button } from "../ui/button";
 interface IHoldButtonProps {
     onComplete: () => void;
     disabled?: boolean;
+    loading?: boolean;
 }
 
-const HoldButton: FC<IHoldButtonProps> = ({ onComplete, disabled }) => {
+const HoldButton: FC<IHoldButtonProps> = ({ onComplete, disabled, loading }) => {
     const [progress, setProgress] = useState(0);
     const [holding, setHolding] = useState(false);
     const DURATION = 1000; // 1 second
@@ -60,8 +61,9 @@ const HoldButton: FC<IHoldButtonProps> = ({ onComplete, disabled }) => {
             onMouseLeave={handleEnd}
             onTouchStart={handleStart}
             onTouchEnd={handleEnd}
+            loading={loading}
             className="w-full bg-[#00DCA5] relative overflow-hidden"
-            disabled={disabled}
+            disabled={disabled || loading}
         >
             <span className="relative z-10">
                 {holding ? 'Hold to Confirm...' : 'Press and Hold to Send'}
