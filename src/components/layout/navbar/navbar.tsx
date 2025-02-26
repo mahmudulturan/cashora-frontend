@@ -42,10 +42,12 @@ const Navbar: FC = () => {
 
                         {showUserMenu && (
                             <div className="absolute top-full left-0 card-white w-48 py-2">
-                                <button className="w-full text-left px-4 py-2 hover:bg-black/5 flex items-center gap-2">
-                                    <User className="w-4 h-4" />
-                                    <span>Profile</span>
-                                </button>
+                                <Link to="/profile">
+                                    <button className="w-full text-left px-4 py-2 hover:bg-black/5 flex items-center gap-2">
+                                        <User className="w-4 h-4" />
+                                        <span>Profile</span>
+                                    </button>
+                                </Link>
                                 <button
                                     onClick={handleLogout}
                                     disabled={isPending}
@@ -65,7 +67,7 @@ const Navbar: FC = () => {
                         <div>
                             <p className="text-xs font-medium">Your Balance</p>
                             <p className="font-bold">
-                                {showBalance ? '৳ 12,500.00' : '৳ ••••••'}
+                                {showBalance ? `৳ ${user?.balance}` : '৳ ••••••'}
                             </p>
                         </div>
                     </div>
