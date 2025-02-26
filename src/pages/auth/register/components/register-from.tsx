@@ -1,23 +1,30 @@
 import { IdCard, Key, Mail, User, UserCog } from 'lucide-react';
-import { Input } from '@/components/ui/input';
+// import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Phone } from 'lucide-react';
 import { FC } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-
+import Form from '@/components/shared/form/form';
+import FormInput from '@/components/shared/form/form-input';
+import authValidations from '@/schema/auth.validation';
+import FormSelect from '@/components/shared/form/form-select';
 const RegisterForm: FC = () => {
+    const onSubmit = (data: any) => {
+        console.log(data);
+    }
+
     return (
-        <form className="card-white rounded-lg p-8 space-y-6">
+        <Form schema={authValidations.registerUser} onSubmit={onSubmit} className="card-white rounded-lg p-8 space-y-6">
             <div className="flex gap-4">
                 <div className="flex-1">
                     <Label htmlFor="firstName">First Name</Label>
                     <div className="relative">
                         <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
-                        <Input
+                        <FormInput
+                            name="name.firstName"
                             type="text"
-                            id="firstName"
+                            id="name.firstName"
                             className="pl-12 w-full"
                             placeholder="Enter first name"
                         />
@@ -27,9 +34,10 @@ const RegisterForm: FC = () => {
                     <Label htmlFor="lastName">Last Name</Label>
                     <div className="relative">
                         <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
-                        <Input
+                        <FormInput
+                            name="name.lastName"
                             type="text"
-                            id="lastName"
+                            id="name.lastName"
                             className="pl-12 w-full"
                             placeholder="Enter last name"
                         />
@@ -40,9 +48,12 @@ const RegisterForm: FC = () => {
                 <Label htmlFor="nid">NID</Label>
                 <div className="relative">
                     <IdCard className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
-                    <Input
+                    <FormInput
+                        name="nid"
                         type="text"
                         id="nid"
+                        minLength={10}
+                        maxLength={10}
                         className="pl-12 w-full"
                         placeholder="Enter your NID"
                     />
@@ -52,7 +63,8 @@ const RegisterForm: FC = () => {
                 <Label htmlFor="email">Email</Label>
                 <div className="relative">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
-                    <Input
+                    <FormInput
+                        name="email"
                         type="email"
                         id="email"
                         className="pl-12 w-full"
@@ -64,8 +76,11 @@ const RegisterForm: FC = () => {
                 <Label htmlFor="phone">Phone Number</Label>
                 <div className="relative">
                     <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
-                    <Input
+                    <FormInput
+                        name="phone"
                         type="tel"
+                        minLength={11}
+                        maxLength={11}
                         id="phone"
                         className="pl-12 w-full"
                         placeholder="01XXXXXXXXX"
@@ -77,24 +92,23 @@ const RegisterForm: FC = () => {
                 <Label htmlFor="role">Account Type</Label>
                 <div className="relative">
                     <UserCog className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
-                    <Select>
-                        <SelectTrigger className="w-full pl-12">
-                            <SelectValue placeholder="Select Account Type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectItem value="user">User</SelectItem>
-                                <SelectItem value="agent">Agent</SelectItem>
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
+                    <FormSelect
+                        name="role"
+                        id='role'
+                        placeholder='Select Account Type'
+                        options={[
+                            { key: 'user', label: 'User' },
+                            { key: 'agent', label: 'Agent' }
+                        ]}
+                    />
                 </div>
             </div>
             <div>
                 <Label htmlFor="pin">PIN</Label>
                 <div className="relative">
                     <Key className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
-                    <Input
+                    <FormInput
+                        name="pin"
                         type="password"
                         id="pin"
                         className="pl-12 w-full"
@@ -112,7 +126,7 @@ const RegisterForm: FC = () => {
                 Already have an account?{' '}
                 <Link to="/login" className="font-bold underline">Login</Link>
             </p>
-        </form>
+        </Form>
     );
 };
 
