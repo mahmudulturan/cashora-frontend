@@ -9,9 +9,13 @@ import Form from '@/components/shared/form/form';
 import FormInput from '@/components/shared/form/form-input';
 import authValidations from '@/schema/auth.validation';
 import FormSelect from '@/components/shared/form/form-select';
+import { useRegisterUser } from '@/hooks/auth.hook';
+
 const RegisterForm: FC = () => {
+    const { mutate: registerUser, isPending: isRegistering } = useRegisterUser();
+
     const onSubmit = (data: any) => {
-        console.log(data);
+        registerUser(data);
     }
 
     return (
@@ -118,8 +122,8 @@ const RegisterForm: FC = () => {
                 </div>
             </div>
 
-            <Button type='submit' className='w-full'>
-                Register
+            <Button type='submit' className='w-full' disabled={isRegistering}>
+                {isRegistering ? 'Registering...' : 'Register'}
             </Button>
 
             <p className="text-center">
