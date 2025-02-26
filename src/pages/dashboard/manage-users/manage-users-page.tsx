@@ -1,10 +1,15 @@
 import { FC, useState } from 'react';
 import ManageUsersTable from './components/manage-users-table';
 import UserSearchFilter from './components/user-search-filter';
+import Pagination from '../../../components/ui/pagination';
+
 const ManageUsersPage: FC = () => {
     const [showBalance, setShowBalance] = useState(true);
     const [status, setStatus] = useState<'all' | 'active' | 'blocked'>('all');
     const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(5);
+
 
     return (
         <div className="wrapper space-y-6">
@@ -20,6 +25,11 @@ const ManageUsersPage: FC = () => {
                 setShowBalance={setShowBalance}
             />
             <ManageUsersTable showBalance={showBalance} />
+            <Pagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                onPageChange={setCurrentPage}
+            />
         </div>
     );
 };
