@@ -1,5 +1,5 @@
 import Logo from '@/components/shared/logo';
-import { Building2, ChevronLeft, HelpCircle, LayoutDashboard, LogOut, Menu, Receipt, Send, Settings, UserCog, Users } from 'lucide-react';
+import { Building2, ChevronLeft, HelpCircle, LayoutDashboard, LogOut, LucideIcon, Menu, Receipt, Send, Settings, UserCog, Users } from 'lucide-react';
 import { FC } from 'react';
 import { NavLink } from 'react-router';
 
@@ -11,7 +11,7 @@ interface ISidebarProps {
 
 
 const Sidebar: FC<ISidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
-    const SidebarLink = ({ icon: Icon, label, to }: { icon: React.ElementType; label: string; to: string }) => (
+    const SidebarLink = ({ icon: Icon, label, to }: { icon: LucideIcon; label: string; to: string }) => (
         <NavLink 
             to={to} 
             className={({ isActive }) => `
@@ -28,7 +28,7 @@ const Sidebar: FC<ISidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
             className={`${sidebarOpen ? 'w-64' : 'w-20'
                 } bg-white border-r-[3px] border-black transition-all duration-300 flex flex-col h-screen sticky top-0`}
         >
-            <div className={`p-4 border-b-[3px] border-black flex items-center ${sidebarOpen ? 'justify-between' : 'justify-center'}`}>
+            <div className={`p-4 border-b-[3px] bg-main border-black flex items-center ${sidebarOpen ? 'justify-between' : 'justify-center'}`}>
                 <div className={`flex items-center gap-3 ${!sidebarOpen && 'hidden'}`}>
                     <Logo size='sm' />
                 </div>
