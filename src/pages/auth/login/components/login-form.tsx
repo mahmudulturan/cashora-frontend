@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Key, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { Label } from '@/components/ui/label';
 import authValidations from '@/schema/auth.validation';
 import Form from '@/components/shared/form/form';
@@ -9,11 +9,19 @@ import FormInput from '@/components/shared/form/form-input';
 import { useLoginUser } from '@/hooks/auth.hook';
 
 const LoginForm: FC = () => {
-    const { mutate: loginUser, isPending: isLoggingIn } = useLoginUser();
+    const { mutate: loginUser, isPending: isLoggingIn, isSuccess: isLoggedIn } = useLoginUser();
+
+    const navigate = useNavigate();
 
     const onSubmit = (data: any) => {
         loginUser(data);
     }
+
+    useEffect(() => {
+        if (isLoggedIn && !isLoggingIn) {
+            navigate('/');
+        }
+    }, [isLoggedIn, isLoggingIn]);
 
     return (
         <Form schema={authValidations.loginUser} onSubmit={onSubmit} className="card-white rounded-lg p-8 space-y-6">

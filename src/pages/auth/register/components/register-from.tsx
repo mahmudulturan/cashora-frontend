@@ -2,9 +2,9 @@ import { IdCard, Key, Mail, User, UserCog } from 'lucide-react';
 // import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Phone } from 'lucide-react';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import Form from '@/components/shared/form/form';
 import FormInput from '@/components/shared/form/form-input';
 import authValidations from '@/schema/auth.validation';
@@ -12,11 +12,19 @@ import FormSelect from '@/components/shared/form/form-select';
 import { useRegisterUser } from '@/hooks/auth.hook';
 
 const RegisterForm: FC = () => {
-    const { mutate: registerUser, isPending: isRegistering } = useRegisterUser();
+    const { mutate: registerUser, isPending: isRegistering, isSuccess: isRegistered } = useRegisterUser();
+    const navigate = useNavigate();
 
     const onSubmit = (data: any) => {
         registerUser(data);
     }
+
+
+    useEffect(() => {
+        if (isRegistered && !isRegistering) {
+            navigate('/');
+        }
+    }, [isRegistered, isRegistering]);
 
     return (
         <Form schema={authValidations.registerUser} onSubmit={onSubmit} className="card-white rounded-lg p-8 space-y-6">
