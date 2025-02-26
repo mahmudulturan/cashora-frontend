@@ -122,8 +122,8 @@ const RegisterForm: FC = () => {
                 </div>
             </div>
 
-            <Button type='submit' className='w-full' disabled={isRegistering}>
-                {isRegistering ? 'Registering...' : 'Register'}
+            <Button type='submit' className='w-full' loading={isRegistering}>
+                Register
             </Button>
 
             <p className="text-center">
