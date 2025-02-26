@@ -10,8 +10,8 @@ import {
 import formatDate from '@/utils/formatDate';
 import { ArrowUpDown, Phone, Mail, Wallet, CheckCircle, Ban } from 'lucide-react';
 import formatAmount from '@/utils/formatAmount';
-import UpdateUserStatus from './update-user-status';
 import { IUser } from '@/types/user';
+import UpdateUserStatus from './update-user-status';
 
 
 interface IManageUsersTableProps {
