@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import AuthLayout from './layout/AuthLayout';
+import AuthLayout from './layout/auth-layout';
 import { Route } from 'react-router';
 import { Routes } from 'react-router';
 import LoginPage from './pages/auth/login/login-page';
 import RegisterPage from './pages/auth/register/register-page';
-import RootLayout from './layout/RootLayout';
+import RootLayout from './layout/root-layout';
 import HomePage from './pages/root/home/home-page';
 import SendMoneyPage from './pages/root/send-money/send-money-page';
 import AdminPage from './pages/root/admin/admin-page';
