@@ -7,7 +7,7 @@ export const useRegisterUser = () => {
         mutationFn: (data: any) => axiosInstance.post('/auth/register', data),
         onSuccess: (_data) => {
             toast({
-                title: "User registration successful."
+                title: "Registration successful."
             });
         },
         onError: (error: any) => {
@@ -19,4 +19,21 @@ export const useRegisterUser = () => {
     })
 }
 
+
+export const useLoginUser = () => {
+    return useMutation({
+        mutationFn: (data: any) => axiosInstance.post('/auth/login', data),
+        onSuccess: (_data) => {
+            toast({
+                title: "Login successful."
+            });
+        },
+        onError: (error: any) => {
+            toast({
+                title: error.response.data.message,
+                variant: "destructive"
+            });
+        }
+    })
+}
 

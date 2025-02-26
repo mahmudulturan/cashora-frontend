@@ -1,15 +1,18 @@
 import { FC } from 'react';
-import { Phone, Key, Mail } from 'lucide-react';
+import { Key, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router';
 import { Label } from '@/components/ui/label';
 import authValidations from '@/schema/auth.validation';
 import Form from '@/components/shared/form/form';
 import FormInput from '@/components/shared/form/form-input';
+import { useLoginUser } from '@/hooks/auth.hook';
 
 const LoginForm: FC = () => {
+    const { mutate: loginUser, isPending: isLoggingIn } = useLoginUser();
+
     const onSubmit = (data: any) => {
-        console.log(data);
+        loginUser(data);
     }
 
     return (
@@ -43,7 +46,7 @@ const LoginForm: FC = () => {
                 </div>
             </div>
 
-            <Button type='submit' className='w-full'>
+            <Button type='submit' className='w-full' loading={isLoggingIn}>
                 Login
             </Button>
 
