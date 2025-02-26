@@ -5,6 +5,7 @@ import { FC, useState } from 'react';
 import useOutsideClick from '@/hooks/outside-click.hook';
 import { useLogoutUser } from '@/hooks/auth.hook';
 import { useAuth } from '@/hooks/auth.hook';
+import { Link } from 'react-router';
 
 const Navbar: FC = () => {
     const [showUserMenu, setShowUserMenu] = useState(false);
@@ -20,11 +21,13 @@ const Navbar: FC = () => {
             <div className="wrapper flex items-center justify-between">
                 {/* User Info Section */}
                 <div className="flex items-center">
-                    <div className="card-yellow p-4 border-r-[3px] border-black">
-                        <div className="w-10 h-10 rounded-full bg-white border-[3px] border-black flex items-center justify-center">
-                            <User className="w-5 h-5" />
+                    <Link to="/">
+                        <div className="card-yellow p-4 border-r-[3px] border-black">
+                            <div className="w-10 h-10 rounded-full bg-white border-[3px] border-black flex items-center justify-center">
+                                <User className="w-5 h-5" />
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                     <div className="relative" ref={userMenuRef}>
                         <button
                             onClick={() => setShowUserMenu(!showUserMenu)}

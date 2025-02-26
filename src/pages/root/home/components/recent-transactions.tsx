@@ -2,11 +2,11 @@ import { FC } from 'react';
 
 const RecentTransactions: FC = () => {
     return (
-        <section className="card-white rounded-lg p-6">
+        <section className="card-white p-6">
             <h2 className="text-xl font-bold mb-6">Recent Transactions</h2>
             <div className="space-y-4">
                 {[1, 2, 3].map((i) => (
-                    <div key={i} className="card-yellow rounded-lg p-4">
+                    <div key={i} className="card-white p-4">
                         <div className="flex justify-between items-center">
                             <div>
                                 <p className="font-bold">Send Money</p>
