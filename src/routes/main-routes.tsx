@@ -13,7 +13,7 @@ import { FC } from 'react';
 import { Route, Routes } from 'react-router';
 import AuthGuard from '@/components/guards/auth-guard';
 import GuestGuard from '@/components/guards/guest-guard';
-
+import ErrorPage from '@/pages/error/error-page';
 const MainRoutes: FC = () => {
   return (
     <Routes>
@@ -38,6 +38,8 @@ const MainRoutes: FC = () => {
           <Route path="transactions" element={<TransactionsPage />} />
         </Route>
       </Route>
+
+      <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
 };
