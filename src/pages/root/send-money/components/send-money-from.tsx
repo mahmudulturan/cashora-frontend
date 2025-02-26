@@ -31,6 +31,7 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
+    
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -56,16 +57,17 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
                                 type="tel"
                                 id="recipient"
                                 name="recipient"
+                                maxLength={11}
+                                minLength={11}
                                 value={formData.recipient}
                                 onChange={handleInputChange}
                                 className="pl-12 w-full"
                                 placeholder="01XXXXXXXXX"
-                                required
                             />
                         </div>
                     </div>
 
-                    <Button type="submit" className="w-full">
+                    <Button type="submit" className="w-full" disabled={formData.recipient.length !== 11}>
                         Next <ArrowRight className="w-4 h-4 inline ml-2" />
                     </Button>
                 </div>
@@ -85,7 +87,7 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
                                 onChange={handleInputChange}
                                 className="pl-12 w-full"
                                 placeholder="Enter amount"
-                                required
+                                min={1}
                             />
                         </div>
                     </div>
@@ -101,7 +103,7 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
                         </div>
                     )}
 
-                    <Button type="submit" className="w-full">
+                    <Button disabled={formData.amount === ''} type="submit" className="w-full">
                         Next <ArrowRight className="w-4 h-4 inline ml-2" />
                     </Button>
                 </div>
@@ -132,16 +134,12 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
                                 className="pl-12 w-full"
                                 placeholder="Enter your 5-digit PIN"
                                 maxLength={5}
-                                required
                             />
                         </div>
                     </div>
 
                     <div className="relative">
-                        <HoldButton onComplete={handleComplete} disabled={!formData.pin} />
-                        {!formData.pin && (
-                            <p className="text-sm text-red-500 mt-2">Please enter your PIN first</p>
-                        )}
+                        <HoldButton onComplete={handleComplete} disabled={formData.pin.length !== 5} />
                     </div>
                 </div>
             )}
