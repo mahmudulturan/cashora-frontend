@@ -1,5 +1,5 @@
-import { sendMoney, cashOut, cashIn } from "@/services/transaction";
-import { useMutation } from "@tanstack/react-query";
+import { sendMoney, cashOut, cashIn, getMyTransactions, getAllTransactions } from "@/services/transaction";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "@/hooks/use-toast";
 import { ITransactionPayload } from "@/types/transaction";
 
@@ -52,3 +52,19 @@ export const useCashIn = () => {
         }
     })
 }
+
+
+export const useGetMyTransactions = () => {
+    return useQuery({
+        queryKey: ['my-transactions'],
+        queryFn: async () => await getMyTransactions()
+    })
+}
+
+export const useGetAllTransactions = () => {
+    return useQuery({
+        queryKey: ['all-transactions'],
+        queryFn: async () => await getAllTransactions()
+    })
+}
+

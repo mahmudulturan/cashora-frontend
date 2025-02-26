@@ -18,3 +18,17 @@ export const cashIn: TTransactionMutation = async (data) => {
     const response = await axiosInstance.post('/transaction/cash-in', data);
     return response.data;
 }
+
+
+export const getMyTransactions = async () => {
+    const response = await axiosInstance.get('/transaction/history');
+    return response.data;
+}
+
+export const getAllTransactions = async () => {
+    const response = await axiosInstance.get('/transaction/all-history');
+    return response.data;
+}
+
+
+
