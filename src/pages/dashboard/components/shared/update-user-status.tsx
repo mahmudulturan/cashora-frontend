@@ -21,7 +21,7 @@ const UpdateUserStatus: FC<IUpdateUserStatusProps> = ({ status }) => {
         <AlertDialog>
             <AlertDialogTrigger asChild>
                 <Button
-                    className={`w-32 ${status === 'pending' ? 'bg-yellow-500' : status === 'blocked' ? 'bg-green-500' : 'bg-red-500'
+                    className={`w-32 ${status === 'pending' ? 'bg-main' : status === 'blocked' ? 'bg-green-500' : 'bg-red-500'
                         } text-white`}
                 >
                     {status === 'pending' ? 'Approve' : status === 'active' ? 'Block' : 'Unblock'}
@@ -43,7 +43,7 @@ const UpdateUserStatus: FC<IUpdateUserStatusProps> = ({ status }) => {
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction asChild>
                         <Button
-                            className={`w-32 ${status === 'pending' ? 'bg-yellow-500' : status === 'blocked' ? 'bg-green-500' : 'bg-red-500'
+                            className={`w-32 ${status === 'pending' ? 'bg-main' : status === 'blocked' ? 'bg-green-500' : 'bg-red-500'
                                 } text-white`}
                         >
                             {status === 'pending' ? 'Approve' : status === 'active' ? 'Block' : 'Unblock'}
