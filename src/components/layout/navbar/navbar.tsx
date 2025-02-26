@@ -3,9 +3,7 @@ import { Bell, ChevronDown, Eye, EyeOff, LogOut, Wallet } from 'lucide-react';
 import { User } from 'lucide-react';
 import { FC, useState } from 'react';
 import useOutsideClick from '@/hooks/outside-click.hook';
-import { logoutUser } from '@/services/auth';
-import { useNavigate } from 'react-router';
-import { toast } from '@/hooks/use-toast';
+import { useLogoutUser } from '@/hooks/auth.hook';
 import { useAuth } from '@/hooks/auth.hook';
 
 const Navbar: FC = () => {
@@ -13,28 +11,9 @@ const Navbar: FC = () => {
     const [showBalance, setShowBalance] = useState(false);
     const userMenuRef = useOutsideClick(() => setShowUserMenu(false), showUserMenu);
 
-    const { user, setUser, setIsAuthenticated } = useAuth();
+    const { user } = useAuth();
+    const { handleLogout, isPending } = useLogoutUser();
 
-    const navigate = useNavigate();
-
-    const handleLogout = async () => {
-        try {
-            const data = await logoutUser();
-            if (data.success) {
-                toast({
-                    title: data.message
-                });
-                setUser(null);
-                setIsAuthenticated(false);
-                navigate('/login');
-            }
-        } catch (error: any) {
-            toast({
-                title: error.response.data.message,
-                variant: "destructive"
-            });
-        }
-    }
 
     return (
         <nav className="card-white border-b-[3px] border-black p-0 mb-8">
@@ -64,9 +43,12 @@ const Navbar: FC = () => {
                                     <User className="w-4 h-4" />
                                     <span>Profile</span>
                                 </button>
-                                <button className="w-full text-left px-4 py-2 hover:bg-black/5 flex items-center gap-2">
+                                <button
+                                    onClick={handleLogout}
+                                    disabled={isPending}
+                                    className="w-full text-left px-4 py-2 hover:bg-black/5 flex items-center gap-2">
                                     <LogOut className="w-4 h-4" />
-                                    <span onClick={handleLogout}>Logout</span>
+                                    <span>Logout</span>
                                 </button>
                             </div>
                         )}

@@ -1,8 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "./use-toast";
-import { registerUser, loginUser } from "@/services/auth";
-import { useContext } from "react";
+import { registerUser, loginUser, logoutUser } from "@/services/auth";
+import { useContext, useState } from "react";
 import { AuthContext } from "@/providers/auth-provider";
+import { useNavigate } from "react-router";
 
 export const useRegisterUser = () => {
     const { setIsAuthenticated, setUser } = useAuth();
@@ -45,7 +46,36 @@ export const useLoginUser = () => {
     })
 }
 
+export const useLogoutUser = () => {
+    const [isPending, setIsPending] = useState(false);
+    const { setUser, setIsAuthenticated } = useAuth();
 
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        setIsPending(true);
+        try {
+            const data = await logoutUser();
+            if (data.success) {
+                toast({
+                    title: data.message
+                });
+                setUser(null);
+                setIsAuthenticated(false);
+                navigate('/login');
+            }
+        } catch (error: any) {
+            toast({
+                title: error.response.data.message,
+                variant: "destructive"
+            });
+        } finally {
+            setIsPending(false);
+        }
+    }
+
+    return { handleLogout, isPending };
+}
 
 export const useAuth = () => {
     const auth = useContext(AuthContext);

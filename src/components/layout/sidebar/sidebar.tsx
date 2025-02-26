@@ -1,4 +1,5 @@
 import Logo from '@/components/shared/logo';
+import { useLogoutUser } from '@/hooks/auth.hook';
 import { Building2, ChevronLeft, HelpCircle, LayoutDashboard, LogOut, LucideIcon, Menu, Receipt, Send, Settings, UserCog, Users } from 'lucide-react';
 import { FC } from 'react';
 import { Link, NavLink } from 'react-router';
@@ -23,6 +24,9 @@ const Sidebar: FC<ISidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
             <span className={`font-medium ${!sidebarOpen && 'hidden'}`}>{label}</span>
         </NavLink>
     );
+
+    const { handleLogout, isPending } = useLogoutUser();
+
     return (
         <aside
             className={`${sidebarOpen ? 'w-64' : 'w-20'
@@ -52,7 +56,10 @@ const Sidebar: FC<ISidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
                 <SidebarLink icon={HelpCircle} label="Help & Support" to="/dashboard/help-support" />
             </nav>
             <div className="p-4 border-t-[3px] border-black">
-                <button className="w-full flex items-center gap-3 px-3 py-3 text-red-600 hover:bg-red-50 transition-colors rounded-lg">
+                <button
+                    onClick={handleLogout}
+                    disabled={isPending}
+                    className="w-full flex items-center gap-3 px-3 py-3 text-red-600 hover:bg-red-50 transition-colors rounded-lg">
                     <LogOut className="w-5 h-5" />
                     <span className={`font-medium ${!sidebarOpen && 'hidden'}`}>Logout</span>
                 </button>
