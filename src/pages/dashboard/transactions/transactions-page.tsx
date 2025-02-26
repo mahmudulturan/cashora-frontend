@@ -11,7 +11,7 @@ const TransactionsPage: FC = () => {
             <div className="flex items-center gap-3 mb-8">
                 <h1 className="text-3xl font-bold">Transactions</h1>
             </div>
-            <TransactionsTable  transactions={[]}/>
+            <TransactionsTable loading={false} transactions={[]} />
             <div>
                 <div className='absolute bottom-0 left-0 right-0'>
                     <Pagination

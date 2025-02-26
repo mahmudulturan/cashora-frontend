@@ -14,6 +14,8 @@ import { Route, Routes } from 'react-router';
 import AuthGuard from '@/components/guards/auth-guard';
 import GuestGuard from '@/components/guards/guest-guard';
 import ErrorPage from '@/pages/error/error-page';
+import MyTransactionsPage from '@/pages/root/my-transactions/my-transactions-page';
+
 const MainRoutes: FC = () => {
   return (
     <Routes>
@@ -27,7 +29,7 @@ const MainRoutes: FC = () => {
       <Route element={<AuthGuard><RootLayout /></AuthGuard>}>
         <Route index element={<HomePage />} />
         <Route path="send-money" element={<SendMoneyPage />} />
-        <Route path="about" element={<div>About</div>} />
+        <Route path="my-transactions" element={<MyTransactionsPage />} />
       </Route>
 
       <Route element={<AuthGuard><DashboardLayout /></AuthGuard>}>

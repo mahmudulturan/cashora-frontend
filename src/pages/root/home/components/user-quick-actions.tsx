@@ -28,7 +28,7 @@ const UserQuickActions: FC = () => {
                 <History className="w-8 h-8 mb-4" />
                 <h3 className="text-xl font-bold mb-2">History</h3>
                 <p className="mb-4">View your last 90 transaction history from your account</p>
-                <Link to="/transactions">
+                <Link to="/my-transactions">
                     <Button className="w-full">View History</Button>
                 </Link>
             </div>
