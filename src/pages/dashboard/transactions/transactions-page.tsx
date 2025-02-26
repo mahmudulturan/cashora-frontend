@@ -1,11 +1,10 @@
 import { FC, useState } from 'react';
 import TransactionsTable from './components/transactions-table';
 import Pagination from '@/components/ui/pagination';
-import { ITransaction } from '@/types/transaction';
 
 const TransactionsPage: FC = () => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(3);
+    const [totalPages, _setTotalPages] = useState(3);
 
     return (
         <div className="wrapper space-y-6 h-[calc(100vh-48px)] relative">

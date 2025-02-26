@@ -46,7 +46,7 @@ const TransactionsTable: FC<ITransactionsTableProps> = ({ transactions }) => {
                     <TableBody>
                         {transactions.map((transaction) => {
                             const sender = transaction.sender as IUser;
-                            const receiver = transaction.receiver as IUser;
+                            // const receiver = transaction.receiver as IUser;
 
                             return (
                                 <TableRow key={transaction._id} className="border-b border-black/10 hover:bg-gray-50">

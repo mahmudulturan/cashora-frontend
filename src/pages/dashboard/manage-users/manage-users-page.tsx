@@ -9,7 +9,7 @@ const ManageUsersPage: FC = () => {
     const [status, setStatus] = useState<'all' | 'active' | 'blocked'>('all');
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(5);
+    const [totalPages, _setTotalPages] = useState(5);
 
 
     const users: IUser[] = [

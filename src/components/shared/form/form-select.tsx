@@ -15,7 +15,7 @@ export interface IFormSelectProps extends SelectHTMLAttributes<HTMLSelectElement
 }
 
 const FormSelect: FC<IFormSelectProps> = ({ name, ...props }) => {
-    const { register, setValue, watch, trigger, formState: { errors } } = useFormContext();
+    const { setValue, watch, trigger, formState: { errors } } = useFormContext();
     const value = watch(name);
 
     const errorMessage = errors?.[name]?.message as string;
