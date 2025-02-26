@@ -1,22 +1,29 @@
 import { FC } from 'react';
-import { Phone, Key } from 'lucide-react';
+import { Phone, Key, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Link } from 'react-router';
 import { Label } from '@/components/ui/label';
+import authValidations from '@/schema/auth.validation';
+import Form from '@/components/shared/form/form';
+import FormInput from '@/components/shared/form/form-input';
 
 const LoginForm: FC = () => {
+    const onSubmit = (data: any) => {
+        console.log(data);
+    }
+
     return (
-        <form className="card-white rounded-lg p-8 space-y-6">
+        <Form schema={authValidations.loginUser} onSubmit={onSubmit} className="card-white rounded-lg p-8 space-y-6">
             <div>
-                <Label htmlFor="phone">Phone Number</Label>
+                <Label htmlFor="emailOrPhone">Email or Phone</Label>
                 <div className="relative">
-                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
-                    <Input
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
+                    <FormInput
                         type="tel"
-                        id="phone"
+                        id="emailOrPhone"
+                        name="emailOrPhone"
                         className="pl-12 w-full"
-                        placeholder="01XXXXXXXXX"
+                        placeholder="Email Address or Phone Number"
                     />
                 </div>
             </div>
@@ -25,9 +32,10 @@ const LoginForm: FC = () => {
                 <Label htmlFor="pin">PIN</Label>
                 <div className="relative">
                     <Key className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
-                    <Input
+                    <FormInput
                         type="password"
                         id="pin"
+                        name="pin"
                         className="pl-12 w-full"
                         placeholder="Enter your 5-digit PIN"
                         maxLength={5}
@@ -43,7 +51,7 @@ const LoginForm: FC = () => {
                 Don't have an account?{' '}
                 <Link to="/register" className="font-bold underline">Register</Link>
             </p>
-        </form>
+        </Form>
     );
 };
 
