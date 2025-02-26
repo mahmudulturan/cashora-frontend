@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input';
 import formatAmount from '@/utils/formatAmount';
 import { Activity, ArrowRight, Eye, EyeOff, Search } from 'lucide-react';
 import { FC, useState } from 'react';
-import AdminStats from './admin-stats';
+import AdminStats from './components/admin-stats';
 import formatDate from '@/utils/formatDate';
 
 interface Transaction {
@@ -90,92 +90,90 @@ const AdminPage: FC = () => {
     };
 
     return (
-        <>
-            <div className="wrapper space-y-6">
-                {/* Header */}
-                <div className="flex items-center justify-between">
-                    <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-                    <Button
-                        onClick={() => setShowAmounts(!showAmounts)}
-                        className="bg-white"
-                    >
-                        {showAmounts ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+        <div className="wrapper space-y-6">
+            {/* Header */}
+            <div className="flex items-start justify-between gap-3 mb-8">
+                <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+                <Button
+                    onClick={() => setShowAmounts(!showAmounts)}
+                    className="bg-white"
+                >
+                    {showAmounts ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </Button>
+            </div>
+
+
+            <AdminStats showAmounts={showAmounts} />
+
+            {/* Recent Transactions */}
+            <div className="card-white p-6">
+                <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-3">
+                        <Activity className="w-6 h-6" />
+                        <h2 className="text-xl font-bold">Recent Transactions</h2>
+                    </div>
+                    <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <Input
+                            type="text"
+                            placeholder="Search transactions..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="pl-10"
+                        />
+                    </div>
+                </div>
+                <div className="overflow-x-auto">
+                    <table className="w-full">
+                        <thead>
+                            <tr className="border-b-[3px] border-black">
+                                <th className="p-4 text-left">User</th>
+                                <th className="p-4 text-left">Type</th>
+                                <th className="p-4 text-left">Amount</th>
+                                <th className="p-4 text-left">Fee</th>
+                                <th className="p-4 text-left">Status</th>
+                                <th className="p-4 text-left">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {recentTransactions.map((transaction) => (
+                                <tr key={transaction.id} className="border-b border-black/10">
+                                    <td className="p-4">
+                                        <div>
+                                            <div className="font-bold">{transaction.user.name}</div>
+                                            <div className="text-sm text-gray-600">{transaction.user.phone}</div>
+                                        </div>
+                                    </td>
+                                    <td className="p-4">
+                                        <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${getTransactionColor(transaction.type)}`}>
+                                            {transaction.type.replace('_', ' ')}
+                                        </span>
+                                    </td>
+                                    <td className="p-4 font-bold">
+                                        {showAmounts ? formatAmount(transaction.amount) : '••••••'}
+                                    </td>
+                                    <td className="p-4 font-bold">
+                                        {showAmounts ? formatAmount(transaction.fee) : '••••••'}
+                                    </td>
+                                    <td className="p-4">
+                                        <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(transaction.status)}`}>
+                                            {transaction.status}
+                                        </span>
+                                    </td>
+                                    <td className="p-4">{formatDate(transaction.date)}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                <div className="mt-4 flex justify-center">
+                    <Button className="bg-white flex items-center gap-2">
+                        View All Transactions
+                        <ArrowRight className="w-4 h-4" />
                     </Button>
                 </div>
-
-
-                <AdminStats showAmounts={showAmounts} />
-
-                {/* Recent Transactions */}
-                <div className="card-white p-6">
-                    <div className="flex items-center justify-between mb-6">
-                        <div className="flex items-center gap-3">
-                            <Activity className="w-6 h-6" />
-                            <h2 className="text-xl font-bold">Recent Transactions</h2>
-                        </div>
-                        <div className="relative">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                            <Input
-                                type="text"
-                                placeholder="Search transactions..."
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                className="pl-10"
-                            />
-                        </div>
-                    </div>
-                    <div className="overflow-x-auto">
-                        <table className="w-full">
-                            <thead>
-                                <tr className="border-b-[3px] border-black">
-                                    <th className="p-4 text-left">User</th>
-                                    <th className="p-4 text-left">Type</th>
-                                    <th className="p-4 text-left">Amount</th>
-                                    <th className="p-4 text-left">Fee</th>
-                                    <th className="p-4 text-left">Status</th>
-                                    <th className="p-4 text-left">Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {recentTransactions.map((transaction) => (
-                                    <tr key={transaction.id} className="border-b border-black/10">
-                                        <td className="p-4">
-                                            <div>
-                                                <div className="font-bold">{transaction.user.name}</div>
-                                                <div className="text-sm text-gray-600">{transaction.user.phone}</div>
-                                            </div>
-                                        </td>
-                                        <td className="p-4">
-                                            <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${getTransactionColor(transaction.type)}`}>
-                                                {transaction.type.replace('_', ' ')}
-                                            </span>
-                                        </td>
-                                        <td className="p-4 font-bold">
-                                            {showAmounts ? formatAmount(transaction.amount) : '••••••'}
-                                        </td>
-                                        <td className="p-4 font-bold">
-                                            {showAmounts ? formatAmount(transaction.fee) : '••••••'}
-                                        </td>
-                                        <td className="p-4">
-                                            <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(transaction.status)}`}>
-                                                {transaction.status}
-                                            </span>
-                                        </td>
-                                        <td className="p-4">{formatDate(transaction.date)}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div className="mt-4 flex justify-center">
-                        <Button className="bg-white flex items-center gap-2">
-                            View All Transactions
-                            <ArrowRight className="w-4 h-4" />
-                        </Button>
-                    </div>
-                </div>
             </div>
-        </>
+        </div>
     );
 };
 
