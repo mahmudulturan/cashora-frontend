@@ -55,7 +55,7 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
 
 
     useEffect(() => {
-        if (isSendSuccess && isSending) {
+        if (isSendSuccess && !isSending) {
             setShowConfirmation(true);
             setIsSuccess(true);
         }
