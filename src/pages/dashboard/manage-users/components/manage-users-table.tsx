@@ -10,8 +10,7 @@ import {
 import formatDate from '@/utils/formatDate';
 import { ArrowUpDown, Phone, Mail, Wallet, Shield, CheckCircle, Ban } from 'lucide-react';
 import formatAmount from '@/utils/formatAmount';
-import { Button } from '@/components/ui/button';
-
+import UpdateUserStatus from './update-user-status';
 interface User {
     id: string;
     name: string;
@@ -19,7 +18,7 @@ interface User {
     email: string;
     balance: number;
     type: string;
-    status: string;
+    status: 'active' | 'blocked' | 'pending';
     lastActive: string;
 }
 
@@ -52,6 +51,16 @@ const users: User[] = [
         balance: 100,
         type: 'user',
         status: 'blocked',
+        lastActive: '2024-03-14T09:15:00Z',
+    },
+    {
+        id: '4',
+        name: 'Mike Pending',
+        phone: '01912345678',
+        email: 'mike@example.com',
+        balance: 100,
+        type: 'user',
+        status: 'pending',
         lastActive: '2024-03-14T09:15:00Z',
     },
 ];
@@ -146,12 +155,7 @@ const ManageUsersTable: FC<IManageUsersTableProps> = ({ showBalance }) => {
                                     {formatDate(user.lastActive)}
                                 </TableCell>
                                 <TableCell className="p-4">
-                                    <Button
-                                        className={`w-32 ${user.status === 'active' ? 'bg-red-500' : 'bg-green-500'
-                                            } text-white`}
-                                    >
-                                        {user.status === 'active' ? 'Block' : 'Unblock'}
-                                    </Button>
+                                    <UpdateUserStatus status={user.status} />
                                 </TableCell>
                             </TableRow>
                         ))}
