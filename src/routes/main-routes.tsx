@@ -15,6 +15,7 @@ import AuthGuard from '@/components/guards/auth-guard';
 import GuestGuard from '@/components/guards/guest-guard';
 import ErrorPage from '@/pages/error/error-page';
 import MyTransactionsPage from '@/pages/root/my-transactions/my-transactions-page';
+import CashOutPage from '@/pages/root/cash-out/cash-out-page';
 
 const MainRoutes: FC = () => {
   return (
@@ -29,6 +30,7 @@ const MainRoutes: FC = () => {
       <Route element={<AuthGuard><RootLayout /></AuthGuard>}>
         <Route index element={<HomePage />} />
         <Route path="send-money" element={<SendMoneyPage />} />
+        <Route path="cash-out" element={<CashOutPage />} />     
         <Route path="my-transactions" element={<MyTransactionsPage />} />
       </Route>
 

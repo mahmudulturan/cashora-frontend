@@ -3,9 +3,10 @@ import { Phone, Calculator, ArrowRight, Key } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import HoldButton from '@/components/shared/hold-button';
-import { useSendMoney } from '@/hooks/transaction.hook';
+import { useCashOut, useSendMoney } from '@/hooks/transaction.hook';
+import calculateTransactionFee from '@/utils/calculateTransactionFee';
 
-interface ISendMoneyFromProps {
+interface ICashOutFormProps {
     step: number;
     setStep: Dispatch<SetStateAction<number>>;
     setShowConfirmation: Dispatch<SetStateAction<boolean>>;
@@ -23,13 +24,10 @@ interface ISendMoneyFromProps {
 }
 
 
-const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirmation, setIsSuccess, formData, setFormData }) => {
+const CashOutForm: FC<ICashOutFormProps> = ({ step, setStep, setShowConfirmation, setIsSuccess, formData, setFormData }) => {
 
-    const { mutate: sendMoney, isPending: isSending, isSuccess: isSendSuccess } = useSendMoney();
+    const { mutate: cashOut, isPending: isSending, isSuccess: isSendSuccess } = useCashOut();
 
-    const calculateFee = (amount: number) => {
-        return amount > 100 ? 5 : 0;
-    };
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -45,17 +43,17 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
     };
 
     const handleComplete = useCallback(() => {
-        sendMoney({
+        cashOut({
             receiver: formData.receiver,
             amount: Number(formData.amount),
             pin: formData.pin,
         });
 
-    }, [setShowConfirmation, setIsSuccess, formData, sendMoney]);
+    }, [setShowConfirmation, setIsSuccess, formData, cashOut]);
 
 
     useEffect(() => {
-        if (isSendSuccess && isSending) {
+        if (isSendSuccess && !isSending) {
             setShowConfirmation(true);
             setIsSuccess(true);
         }
@@ -66,7 +64,7 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
             {step === 1 && (
                 <div className="space-y-6">
                     <div>
-                        <label className="block font-bold mb-2" htmlFor="receiver">Receiver's Phone Number</label>
+                        <label className="block font-bold mb-2" htmlFor="receiver">Agent's Phone Number</label>
                         <div className="relative">
                             <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
                             <Input
@@ -113,8 +111,8 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
                             <p className="font-bold">Transaction Summary</p>
                             <div className="mt-2 space-y-1">
                                 <p>Amount: ৳{formData.amount}</p>
-                                <p>Fee: ৳{calculateFee(Number(formData.amount))}</p>
-                                <p className="font-bold">Total: ৳{Number(formData.amount) + calculateFee(Number(formData.amount))}</p>
+                                <p>Fee: ৳{calculateTransactionFee(Number(formData.amount), 'cash_out')}</p>
+                                <p className="font-bold">Total: ৳{Number(formData.amount) + calculateTransactionFee(Number(formData.amount), 'cash_out')}</p>
                             </div>
                         </div>
                     )}
@@ -132,8 +130,8 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
                         <div className="mt-2 space-y-1">
                             <p>To: {formData.receiver}</p>
                             <p>Amount: ৳{formData.amount}</p>
-                            <p>Fee: ৳{calculateFee(Number(formData.amount))}</p>
-                            <p className="font-bold">Total: ৳{Number(formData.amount) + calculateFee(Number(formData.amount))}</p>
+                            <p>Fee: ৳{calculateTransactionFee(Number(formData.amount), 'cash_out')}</p>
+                            <p className="font-bold">Total: ৳{Number(formData.amount) + calculateTransactionFee(Number(formData.amount), 'cash_out')}</p>
                         </div>
                     </div>
 
@@ -163,4 +161,4 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
     );
 };
 
-export default SendMoneyFrom;
+export default CashOutForm;

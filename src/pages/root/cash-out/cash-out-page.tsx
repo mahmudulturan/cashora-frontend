@@ -1,12 +1,12 @@
-import { FC, useState } from 'react';
-import StepsIndicator from '../../../components/shared/steps-indicator';
-import { CheckCircle2, Send, XCircle } from 'lucide-react';
-import SendMoneyFrom from './components/send-money-from';
-import calculateTransactionFee from '@/utils/calculateTransactionFee';
+import StepsIndicator from '@/components/shared/steps-indicator';
 import { Button } from '@/components/ui/button';
+import calculateTransactionFee from '@/utils/calculateTransactionFee';
+import { CheckCircle2, XCircle, HandCoins } from 'lucide-react';
+import { FC, useState } from 'react';
 import { Link } from 'react-router';
+import CashOutForm from './components/cash-out-form';
 
-const SendMoneyPage: FC = () => {
+const CashOutPage: FC = () => {
     const [step, setStep] = useState<number>(1);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [isSuccess, setIsSuccess] = useState(true);
@@ -25,13 +25,13 @@ const SendMoneyPage: FC = () => {
                             {isSuccess ? (
                                 <>
                                     <CheckCircle2 className="w-16 h-16 mx-auto mb-4" />
-                                    <h2 className="text-2xl font-bold mb-2">Transfer Successful!</h2>
-                                    <p>Your money has been sent successfully.</p>
+                                    <h2 className="text-2xl font-bold mb-2">Cash Out Successful!</h2>
+                                    <p>Your money has been successfully cash out.</p>
                                 </>
                             ) : (
                                 <>
                                     <XCircle className="w-16 h-16 mx-auto mb-4" />
-                                    <h2 className="text-2xl font-bold mb-2">Transfer Failed</h2>
+                                    <h2 className="text-2xl font-bold mb-2">Cash Out Failed</h2>
                                     <p>Something went wrong. Please try again.</p>
                                 </>
                             )}
@@ -40,10 +40,10 @@ const SendMoneyPage: FC = () => {
                         <div className="card-white rounded-lg p-6">
                             <h3 className="font-bold mb-4">Transaction Details</h3>
                             <div className="space-y-2 text-left">
-                                <p><span className="font-bold">receiver:</span> {formData.receiver}</p>
+                                <p><span className="font-bold">Agent Number:</span> {formData.receiver}</p>
                                 <p><span className="font-bold">Amount:</span> ৳{formData.amount}</p>
-                                <p><span className="font-bold">Fee:</span> ৳{calculateTransactionFee(Number(formData.amount), 'send_money')}</p>
-                                <p><span className="font-bold">Total:</span> ৳{Number(formData.amount) + calculateTransactionFee(Number(formData.amount), 'send_money')}</p>
+                                <p><span className="font-bold">Fee:</span> ৳{calculateTransactionFee(Number(formData.amount), 'cash_out')}</p>
+                                <p><span className="font-bold">Total:</span> ৳{Number(formData.amount) + calculateTransactionFee(Number(formData.amount), 'cash_out')}</p>
                             </div>
                         </div>
                         <Link to="/">
@@ -60,12 +60,12 @@ const SendMoneyPage: FC = () => {
                     <div className="w-full max-w-md">
                         <div className="text-center mb-8">
                             <div className="inline-flex items-center gap-2 mb-4">
-                                <Send className="w-12 h-12" />
-                                <h1 className="text-4xl font-bold">Send Money</h1>
+                                <HandCoins className="w-12 h-12" />
+                                <h1 className="text-4xl font-bold">Cash Out</h1>
                             </div>
                         </div>
                         <StepsIndicator step={step} />
-                        <SendMoneyFrom step={step} setStep={setStep} setIsSuccess={setIsSuccess} setShowConfirmation={setShowConfirmation} formData={formData} setFormData={setFormData} />
+                        <CashOutForm step={step} setStep={setStep} setIsSuccess={setIsSuccess} setShowConfirmation={setShowConfirmation} formData={formData} setFormData={setFormData} />
                     </div>
                 </div>
             )}
@@ -73,4 +73,4 @@ const SendMoneyPage: FC = () => {
     );
 };
 
-export default SendMoneyPage;
+export default CashOutPage;
