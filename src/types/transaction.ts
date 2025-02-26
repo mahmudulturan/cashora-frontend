@@ -21,5 +21,5 @@ export interface ITransactionFees {
 export interface ITransactionPayload {
     receiver: string;
     amount: number;
-    note: string;
+    note?: string;
 }
