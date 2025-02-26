@@ -19,14 +19,18 @@ const UserQuickActions: FC = () => {
                 <ArrowDownToLine className="w-8 h-8 mb-4" />
                 <h3 className="text-xl font-bold mb-2">Cash Out</h3>
                 <p className="mb-4">Withdraw money from nearby agents from your account</p>
-                <Button className="w-full">Cash Out</Button>
+                <Link to="/cash-out">
+                    <Button className="w-full">Cash Out</Button>
+                </Link>
             </div>
 
             <div className="card-white p-6">
                 <History className="w-8 h-8 mb-4" />
                 <h3 className="text-xl font-bold mb-2">History</h3>
                 <p className="mb-4">View your last 90 transaction history from your account</p>
-                <Button className="w-full">View History</Button>
+                <Link to="/transactions">
+                    <Button className="w-full">View History</Button>
+                </Link>
             </div>
         </section>
     );
