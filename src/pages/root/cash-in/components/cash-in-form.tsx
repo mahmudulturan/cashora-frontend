@@ -3,10 +3,9 @@ import { Phone, Calculator, ArrowRight, Key } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import HoldButton from '@/components/shared/hold-button';
-import { useCashOut } from '@/hooks/transaction.hook';
-import calculateTransactionFee from '@/utils/calculateTransactionFee';
-
-interface ICashOutFormProps {
+import { useCashIn } from '@/hooks/transaction.hook';
+    
+interface ICashInFormProps {
     step: number;
     setStep: Dispatch<SetStateAction<number>>;
     setShowConfirmation: Dispatch<SetStateAction<boolean>>;
@@ -24,9 +23,8 @@ interface ICashOutFormProps {
 }
 
 
-const CashOutForm: FC<ICashOutFormProps> = ({ step, setStep, setShowConfirmation, setIsSuccess, formData, setFormData }) => {
-
-    const { mutate: cashOut, isPending: isSending, isSuccess: isSendSuccess } = useCashOut();
+const CashInForm: FC<ICashInFormProps> = ({ step, setStep, setShowConfirmation, setIsSuccess, formData, setFormData }) => {
+    const { mutate: cashIn, isPending: isSending, isSuccess: isSendSuccess } = useCashIn();
 
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,13 +41,13 @@ const CashOutForm: FC<ICashOutFormProps> = ({ step, setStep, setShowConfirmation
     };
 
     const handleComplete = useCallback(() => {
-        cashOut({
+        cashIn({
             receiver: formData.receiver,
             amount: Number(formData.amount),
             pin: formData.pin,
         });
 
-    }, [setShowConfirmation, setIsSuccess, formData, cashOut]);
+    }, [setShowConfirmation, setIsSuccess, formData, cashIn]);
 
 
     useEffect(() => {
@@ -111,8 +109,8 @@ const CashOutForm: FC<ICashOutFormProps> = ({ step, setStep, setShowConfirmation
                             <p className="font-bold">Transaction Summary</p>
                             <div className="mt-2 space-y-1">
                                 <p>Amount: ৳{formData.amount}</p>
-                                <p>Fee: ৳{calculateTransactionFee(Number(formData.amount), 'cash_out')}</p>
-                                <p className="font-bold">Total: ৳{Number(formData.amount) + calculateTransactionFee(Number(formData.amount), 'cash_out')}</p>
+                                <p>Fee: ৳0</p>
+                                <p className="font-bold">Total: ৳{Number(formData.amount)}</p>
                             </div>
                         </div>
                     )}
@@ -130,8 +128,8 @@ const CashOutForm: FC<ICashOutFormProps> = ({ step, setStep, setShowConfirmation
                         <div className="mt-2 space-y-1">
                             <p>To: {formData.receiver}</p>
                             <p>Amount: ৳{formData.amount}</p>
-                            <p>Fee: ৳{calculateTransactionFee(Number(formData.amount), 'cash_out')}</p>
-                            <p className="font-bold">Total: ৳{Number(formData.amount) + calculateTransactionFee(Number(formData.amount), 'cash_out')}</p>
+                            <p>Fee: ৳0</p>
+                            <p className="font-bold">Total: ৳{Number(formData.amount)}</p>
                         </div>
                     </div>
 
@@ -161,4 +159,4 @@ const CashOutForm: FC<ICashOutFormProps> = ({ step, setStep, setShowConfirmation
     );
 };
 
-export default CashOutForm;
+export default CashInForm;
