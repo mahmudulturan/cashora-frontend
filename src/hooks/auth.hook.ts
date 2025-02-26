@@ -5,12 +5,15 @@ import { useContext } from "react";
 import { AuthContext } from "@/providers/auth-provider";
 
 export const useRegisterUser = () => {
+    const { setIsAuthenticated, setUser } = useAuth();
     return useMutation({
         mutationFn: async (data: any) => await registerUser(data),
-        onSuccess: (_data) => {
+        onSuccess: (data) => {
             toast({
                 title: "Registration successful."
             });
+            setIsAuthenticated(true);
+            setUser(data.data);
         },
         onError: (error: any) => {
             toast({
@@ -23,12 +26,15 @@ export const useRegisterUser = () => {
 
 
 export const useLoginUser = () => {
+    const { setIsAuthenticated, setUser } = useAuth();
     return useMutation({
         mutationFn: async (data: any) => await loginUser(data),
-        onSuccess: (_data) => {
+        onSuccess: (data) => {
             toast({
                 title: "Login successful."
             });
+            setIsAuthenticated(true);
+            setUser(data.data);
         },
         onError: (error: any) => {
             toast({

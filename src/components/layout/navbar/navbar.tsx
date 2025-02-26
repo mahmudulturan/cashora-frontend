@@ -3,11 +3,10 @@ import { Bell, ChevronDown, Eye, EyeOff, LogOut, Wallet } from 'lucide-react';
 import { User } from 'lucide-react';
 import { FC, useState } from 'react';
 import useOutsideClick from '@/hooks/outside-click.hook';
-import { useAuth } from '@/providers/auth-provider';
 import { logoutUser } from '@/services/auth';
 import { useNavigate } from 'react-router';
 import { toast } from '@/hooks/use-toast';
-
+import { useAuth } from '@/hooks/auth.hook';
 
 const Navbar: FC = () => {
     const [showUserMenu, setShowUserMenu] = useState(false);
