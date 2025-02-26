@@ -122,7 +122,7 @@ const RegisterForm: FC = () => {
                 </div>
             </div>
 
-            <Button type='submit' className='w-full' loading={isRegistering}>
+            <Button type='submit' className='w-full bg-green-400' loading={isRegistering}>
                 Register
             </Button>
 

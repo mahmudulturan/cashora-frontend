@@ -7,6 +7,9 @@ const RegisterPage: FC = () => {
             <div className="text-center mb-8">
                 <Logo />
                 <p className="text-lg">Create an account to get started.</p>
+                <div className="card-yellow rounded-lg p-4 mt-1">
+                    <p className="font-bold">Get ৳40 Bonus on Registration! 🎉</p>
+                </div>
             </div>
             <RegisterForm />
         </div>
