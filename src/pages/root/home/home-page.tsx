@@ -8,7 +8,7 @@ const HomePage: FC = () => {
     const { user } = useAuth();
     return (
         <main className="wrapper space-y-8 pb-8">
-            {user?.role !== 'user' && <UserQuickActions />}
+            {user?.role === 'user' && <UserQuickActions />}
             {user?.role === 'agent' && <AgentQuickActions />}
             <RecentTransactions />
         </main>

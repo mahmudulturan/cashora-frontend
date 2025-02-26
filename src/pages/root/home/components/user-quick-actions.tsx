@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 const UserQuickActions: FC = () => {
     return (
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="card-pink p-6">
+            <div className="card-white p-6">
                 <Send className="w-8 h-8 mb-4" />
                 <h3 className="text-xl font-bold mb-2">Send Money</h3>
                 <p className="mb-4">Transfer money to another user account instantly</p>
@@ -15,7 +15,7 @@ const UserQuickActions: FC = () => {
                 </Link>
             </div>
 
-            <div className="card-green p-6">
+            <div className="card-white p-6">
                 <ArrowDownToLine className="w-8 h-8 mb-4" />
                 <h3 className="text-xl font-bold mb-2">Cash Out</h3>
                 <p className="mb-4">Withdraw money from nearby agents from your account</p>

@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 const AgentQuickActions: FC = () => {
     return (
         <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <div className="card-pink p-6">
+            <div className="card-white p-6">
                 <Send className="w-8 h-8 mb-4" />
                 <h3 className="text-xl font-bold mb-2">Cash In</h3>
                 <p className="mb-4">Transfer money to a user's account instantly</p>
@@ -15,7 +15,7 @@ const AgentQuickActions: FC = () => {
                 </Link>
             </div>
 
-            <div className="card-green p-6">
+            <div className="card-white p-6">
                 <ArrowUpFromLine className="w-8 h-8 mb-4" />
                 <h3 className="text-xl font-bold mb-2">Cash Request</h3>
                 <p className="mb-4">Request cash from admin when you need more funds</p>
