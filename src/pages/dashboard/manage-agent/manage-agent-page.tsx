@@ -1,10 +1,10 @@
 import { FC, useState } from 'react';
-import ManageUsersTable from '../components/shared/manage-users-table';
-import UserSearchFilter from '../components/shared/user-search-filter';
 import Pagination from '../../../components/ui/pagination';
+import UserSearchFilter from '../components/shared/user-search-filter';
+import ManageUsersTable from '../components/shared/manage-users-table';
 import { IUser } from '@/types/user';
 
-const ManageUsersPage: FC = () => {
+const ManageAgentPage: FC = () => {
     const [showBalance, setShowBalance] = useState(true);
     const [status, setStatus] = useState<'all' | 'active' | 'blocked'>('all');
     const [searchTerm, setSearchTerm] = useState('');
@@ -40,7 +40,7 @@ const ManageUsersPage: FC = () => {
             updatedAt: new Date('2024-01-15')
         },
         {
-            _id: '2', 
+            _id: '2',
             name: {
                 firstName: 'Jane',
                 lastName: 'Smith',
@@ -72,7 +72,7 @@ const ManageUsersPage: FC = () => {
                 lastName: 'Johnson',
                 fullName: 'Alice Johnson'
             },
-            email: 'alice@example.com', 
+            email: 'alice@example.com',
             phone: '+1122334455',
             pin: '5678',
             nid: 'NID789',
@@ -97,7 +97,7 @@ const ManageUsersPage: FC = () => {
     return (
         <div className="wrapper space-y-6 h-[calc(100vh-48px)] relative">
             <div className="flex items-center gap-3 mb-8">
-                <h1 className="text-3xl font-bold">Manage Users</h1>
+                <h1 className="text-3xl font-bold">Manage Agents</h1>
             </div>
             <UserSearchFilter
                 searchTerm={searchTerm}
@@ -106,7 +106,7 @@ const ManageUsersPage: FC = () => {
                 setFilterStatus={setStatus}
                 showBalance={showBalance}
                 setShowBalance={setShowBalance}
-                type="user"
+                type="agent"
             />
             <ManageUsersTable showBalance={showBalance} users={users} />
             <div className='h-10'>
@@ -122,4 +122,4 @@ const ManageUsersPage: FC = () => {
     );
 };
 
-export default ManageUsersPage;
+export default ManageAgentPage;

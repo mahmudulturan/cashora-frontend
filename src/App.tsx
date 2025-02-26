@@ -11,6 +11,7 @@ import AdminPage from './pages/dashboard/admin/admin-page';
 import DashboardLayout from './layout/dashboard-layout';
 import TransactionsPage from './pages/dashboard/transactions/transactions-page';
 import ManageUsersPage from './pages/dashboard/manage-users/manage-users-page';
+import ManageAgentPage from './pages/dashboard/manage-agent/manage-agent-page';
 
 const App: FC = () => {
   return (
@@ -23,6 +24,7 @@ const App: FC = () => {
       <Route path="dashboard" element={<DashboardLayout />}>
         <Route path="admin" element={<AdminPage />} />
         <Route path="manage-users" element={<ManageUsersPage />} />
+        <Route path="manage-agents" element={<ManageAgentPage />} />
         <Route path="transactions" element={<TransactionsPage />} />
       </Route>
       <Route element={<AuthLayout />}>

@@ -8,76 +8,26 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import formatDate from '@/utils/formatDate';
-import { ArrowUpDown, Phone, Mail, Wallet, Shield, CheckCircle, Ban } from 'lucide-react';
+import { ArrowUpDown, Phone, Mail, Wallet, CheckCircle, Ban } from 'lucide-react';
 import formatAmount from '@/utils/formatAmount';
 import UpdateUserStatus from './update-user-status';
-interface User {
-    id: string;
-    name: string;
-    phone: string;
-    email: string;
-    balance: number;
-    type: string;
-    status: 'active' | 'blocked' | 'pending';
-    lastActive: string;
-}
+import { IUser } from '@/types/user';
 
-const users: User[] = [
-    {
-        id: '1',
-        name: 'John Doe',
-        phone: '01712345678',
-        email: 'john@example.com',
-        balance: 5000,
-        type: 'user',
-        status: 'active',
-        lastActive: '2024-03-15T10:30:00Z',
-    },
-    {
-        id: '2',
-        name: 'Sarah Agent',
-        phone: '01812345678',
-        email: 'sarah@example.com',
-        balance: 50000,
-        type: 'agent',
-        status: 'active',
-        lastActive: '2024-03-15T11:45:00Z',
-    },
-    {
-        id: '3',
-        name: 'Mike Block',
-        phone: '01912345678',
-        email: 'mike@example.com',
-        balance: 100,
-        type: 'user',
-        status: 'blocked',
-        lastActive: '2024-03-14T09:15:00Z',
-    },
-    {
-        id: '4',
-        name: 'Mike Pending',
-        phone: '01912345678',
-        email: 'mike@example.com',
-        balance: 100,
-        type: 'user',
-        status: 'pending',
-        lastActive: '2024-03-14T09:15:00Z',
-    },
-];
 
 interface IManageUsersTableProps {
     showBalance: boolean;
+    users: IUser[];
 }
 
-const ManageUsersTable: FC<IManageUsersTableProps> = ({ showBalance }) => {
+const ManageUsersTable: FC<IManageUsersTableProps> = ({ showBalance, users }) => {
 
 
     return (
-        <div className="card-white overflow-hidden">
-            <div className="overflow-x-auto">
+        <div style={{ minWidth: "100%", display: "table" }} className="card-white overflow-hidden">
+            <div className="relative w-full max-h-[calc(100vh-310px)] overflow-auto">
                 <Table className="w-full">
-                    <TableHeader>
-                        <TableRow className="border-b-[3px] border-black">
+                    <TableHeader className="sticky top-0 z-20 bg-bg">
+                        <TableRow>
                             <TableHead className="p-4 text-left">
                                 <button
                                     className="flex items-center gap-2 font-bold hover:text-gray-600"
@@ -95,7 +45,6 @@ const ManageUsersTable: FC<IManageUsersTableProps> = ({ showBalance }) => {
                                     <ArrowUpDown className="w-4 h-4" />
                                 </button>
                             </TableHead>
-                            <TableHead className="p-4 text-left">Type</TableHead>
                             <TableHead className="p-4 text-left">Status</TableHead>
                             <TableHead className="p-4 text-left">
                                 <button
@@ -110,9 +59,9 @@ const ManageUsersTable: FC<IManageUsersTableProps> = ({ showBalance }) => {
                     </TableHeader>
                     <TableBody>
                         {users.map((user) => (
-                            <TableRow key={user.id} className="border-b border-black/10 hover:bg-gray-50">
+                            <TableRow key={user._id} className="border-b border-black/10 hover:bg-gray-50">
                                 <TableCell className="p-4">
-                                    <div className="font-bold">{user.name}</div>
+                                    <div className="font-bold">{user.name.fullName}</div>
                                 </TableCell>
                                 <TableCell className="p-4">
                                     <div className="flex flex-col gap-1">
@@ -133,12 +82,6 @@ const ManageUsersTable: FC<IManageUsersTableProps> = ({ showBalance }) => {
                                     </div>
                                 </TableCell>
                                 <TableCell className="p-4">
-                                    <div className="flex items-center gap-2">
-                                        <Shield className="w-4 h-4" />
-                                        <span className="capitalize">{user.type}</span>
-                                    </div>
-                                </TableCell>
-                                <TableCell className="p-4">
                                     <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${user.status === 'active'
                                         ? 'bg-green-100 text-green-800'
                                         : 'bg-red-100 text-red-800'
@@ -152,7 +95,7 @@ const ManageUsersTable: FC<IManageUsersTableProps> = ({ showBalance }) => {
                                     </span>
                                 </TableCell>
                                 <TableCell className="p-4">
-                                    {formatDate(user.lastActive)}
+                                    {formatDate(user?.activeSession?.lastLogin?.toString() || 'N/A')}
                                 </TableCell>
                                 <TableCell className="p-4">
                                     <UpdateUserStatus status={user.status} />

@@ -11,9 +11,10 @@ interface IUserSearchFilterProps {
     setFilterStatus: (filterStatus: 'all' | 'active' | 'blocked') => void;
     showBalance: boolean;
     setShowBalance: (showBalance: boolean) => void;
+    type: 'user' | 'agent';
 }
 
-const UserSearchFilter: FC<IUserSearchFilterProps> = ({ searchTerm, setSearchTerm, filterStatus, setFilterStatus, showBalance, setShowBalance }) => {
+const UserSearchFilter: FC<IUserSearchFilterProps> = ({ searchTerm, setSearchTerm, filterStatus, setFilterStatus, showBalance, setShowBalance, type }) => {
     return (
         <div className="card-white p-6 mb-6">
             <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
@@ -39,7 +40,8 @@ const UserSearchFilter: FC<IUserSearchFilterProps> = ({ searchTerm, setSearchTer
                             <SelectValue placeholder="Select a status" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">All Status</SelectItem>
+                            <SelectItem value="all">All</SelectItem>
+                            {type === 'agent' && <SelectItem value="pending">Pending</SelectItem>}
                             <SelectItem value="active">Active</SelectItem>
                             <SelectItem value="blocked">Blocked</SelectItem>
                         </SelectContent>
