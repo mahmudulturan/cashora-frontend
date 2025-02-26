@@ -1,7 +1,8 @@
-import { ChangeEvent, Dispatch, FC, FormEvent, SetStateAction, useRef, useState } from 'react';
+import { ChangeEvent, Dispatch, FC, FormEvent, SetStateAction, useCallback } from 'react';
 import { Phone, Calculator, ArrowRight, Key } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import HoldButton from '@/components/shared/hold-button';
 
 interface ISendMoneyFromProps {
     step: number;
@@ -20,13 +21,8 @@ interface ISendMoneyFromProps {
     }>>;
 }
 
-const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirmation, setIsSuccess, formData, setFormData }) => {
-    const [holdProgress, setHoldProgress] = useState(0);
-    const [isHolding, setIsHolding] = useState(false);
-    const holdTimeRef = useRef<number>(0);
-    const animationFrameRef = useRef<number>(0);
-    const HOLD_DURATION = 1000; // 1 second hold duration
 
+const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirmation, setIsSuccess, formData, setFormData }) => {
     const calculateFee = (amount: number) => {
         return amount > 100 ? 5 : 0;
     };
@@ -43,33 +39,10 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
         }
     };
 
-    const startHolding = () => {
-        setIsHolding(true);
-        holdTimeRef.current = Date.now();
-        updateHoldProgress();
-    };
-
-    const updateHoldProgress = () => {
-        const now = Date.now();
-        const holdTime = now - holdTimeRef.current;
-        const progress = Math.min((holdTime / HOLD_DURATION) * 100, 100);
-        setHoldProgress(progress);
-
-        if (progress < 100) {
-            animationFrameRef.current = requestAnimationFrame(updateHoldProgress);
-        } else {
-            setShowConfirmation(true);
-            setIsSuccess(true);
-        }
-    };
-
-    const stopHolding = () => {
-        setIsHolding(false);
-        setHoldProgress(0);
-        if (animationFrameRef.current) {
-            cancelAnimationFrame(animationFrameRef.current);
-        }
-    };
+    const handleComplete = useCallback(() => {
+        setShowConfirmation(true);
+        setIsSuccess(true);
+    }, [setShowConfirmation, setIsSuccess]);
 
     return (
         <form onSubmit={handleSubmit} className="card-white rounded-lg p-8">
@@ -165,24 +138,7 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
                     </div>
 
                     <div className="relative">
-                        <Button
-                            type="button"
-                            onMouseDown={startHolding}
-                            onMouseUp={stopHolding}
-                            onMouseLeave={stopHolding}
-                            onTouchStart={startHolding}
-                            onTouchEnd={stopHolding}
-                            className="w-full bg-[#00DCA5] relative overflow-hidden"
-                            disabled={!formData.pin}
-                        >
-                            <span className="relative z-10">
-                                {isHolding ? 'Hold to Confirm...' : 'Press and Hold to Send'}
-                            </span>
-                            <div
-                                className="absolute left-0 bottom-0 h-full bg-black/10 transition-all duration-100"
-                                style={{ width: `${holdProgress}%` }}
-                            />
-                        </Button>
+                        <HoldButton onComplete={handleComplete} disabled={!formData.pin} />
                         {!formData.pin && (
                             <p className="text-sm text-red-500 mt-2">Please enter your PIN first</p>
                         )}
