@@ -3,10 +3,40 @@ import { Bell, ChevronDown, Eye, EyeOff, LogOut, Wallet } from 'lucide-react';
 import { User } from 'lucide-react';
 import { FC, useState } from 'react';
 import useOutsideClick from '@/hooks/outside-click.hook';
+import { useAuth } from '@/providers/auth-provider';
+import { logoutUser } from '@/services/auth';
+import { useNavigate } from 'react-router';
+import { toast } from '@/hooks/use-toast';
+
+
 const Navbar: FC = () => {
     const [showUserMenu, setShowUserMenu] = useState(false);
     const [showBalance, setShowBalance] = useState(false);
     const userMenuRef = useOutsideClick(() => setShowUserMenu(false), showUserMenu);
+
+    const { user, setUser, setIsAuthenticated } = useAuth();
+
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            const data = await logoutUser();
+            if (data.success) {
+                toast({
+                    title: data.message
+                });
+                setUser(null);
+                setIsAuthenticated(false);
+                navigate('/login');
+            }
+        } catch (error: any) {
+            toast({
+                title: error.response.data.message,
+                variant: "destructive"
+            });
+        }
+    }
+
     return (
         <nav className="card-white border-b-[3px] border-black p-0 mb-8">
             <div className="wrapper flex items-center justify-between">
@@ -23,8 +53,8 @@ const Navbar: FC = () => {
                             className="flex items-center gap-2 px-4 py-4 hover:bg-black/5"
                         >
                             <div>
-                                <p className="font-bold">John Doe</p>
-                                <p className="text-xs">01712345678</p>
+                                <p className="font-bold">{user?.name.fullName}</p>
+                                <p className="text-xs">{user?.phone}</p>
                             </div>
                             <ChevronDown className="w-4 h-4" />
                         </button>
@@ -37,7 +67,7 @@ const Navbar: FC = () => {
                                 </button>
                                 <button className="w-full text-left px-4 py-2 hover:bg-black/5 flex items-center gap-2">
                                     <LogOut className="w-4 h-4" />
-                                    <span>Logout</span>
+                                    <span onClick={handleLogout}>Logout</span>
                                 </button>
                             </div>
                         )}

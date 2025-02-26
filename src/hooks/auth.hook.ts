@@ -1,10 +1,10 @@
-import axiosInstance from "@/lib/axiosInstances";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "./use-toast";
+import { registerUser, loginUser } from "@/services/auth";
 
 export const useRegisterUser = () => {
     return useMutation({
-        mutationFn: (data: any) => axiosInstance.post('/auth/register', data),
+        mutationFn: async (data: any) => await registerUser(data),
         onSuccess: (_data) => {
             toast({
                 title: "Registration successful."
@@ -22,7 +22,7 @@ export const useRegisterUser = () => {
 
 export const useLoginUser = () => {
     return useMutation({
-        mutationFn: (data: any) => axiosInstance.post('/auth/login', data),
+        mutationFn: async (data: any) => await loginUser(data),
         onSuccess: (_data) => {
             toast({
                 title: "Login successful."
@@ -36,4 +36,3 @@ export const useLoginUser = () => {
         }
     })
 }
-
