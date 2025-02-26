@@ -41,7 +41,7 @@ const Navbar: FC = () => {
                         </button>
 
                         {showUserMenu && (
-                            <div className="absolute top-full left-0 card-white w-48 py-2">
+                            <div className="absolute top-full left-0 card-white w-48 py-2 z-10">
                                 <Link to="/profile">
                                     <button className="w-full text-left px-4 py-2 hover:bg-black/5 flex items-center gap-2">
                                         <User className="w-4 h-4" />
