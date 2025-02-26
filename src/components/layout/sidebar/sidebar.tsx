@@ -1,7 +1,7 @@
 import Logo from '@/components/shared/logo';
 import { Building2, ChevronLeft, HelpCircle, LayoutDashboard, LogOut, LucideIcon, Menu, Receipt, Send, Settings, UserCog, Users } from 'lucide-react';
 import { FC } from 'react';
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 
 
 interface ISidebarProps {
@@ -12,8 +12,8 @@ interface ISidebarProps {
 
 const Sidebar: FC<ISidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
     const SidebarLink = ({ icon: Icon, label, to }: { icon: LucideIcon; label: string; to: string }) => (
-        <NavLink 
-            to={to} 
+        <NavLink
+            to={to}
             className={({ isActive }) => `
                 w-full flex items-center gap-3 px-3 py-3 transition-colors rounded-lg
                 ${isActive ? 'bg-black/10 text-black' : 'text-gray-700 hover:bg-black/5'}
@@ -30,7 +30,9 @@ const Sidebar: FC<ISidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
         >
             <div className={`p-4 border-b-[3px] bg-main border-black flex items-center ${sidebarOpen ? 'justify-between' : 'justify-center'}`}>
                 <div className={`flex items-center gap-3 ${!sidebarOpen && 'hidden'}`}>
-                    <Logo size='sm' />
+                    <Link to="/dashboard/admin" className='flex items-center gap-2'>
+                        <Logo size='sm' />
+                    </Link>
                 </div>
                 <button
                     onClick={() => setSidebarOpen(!sidebarOpen)}
