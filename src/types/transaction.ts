@@ -1,6 +1,7 @@
 import { IUser } from "./user";
 
 export interface ITransaction extends Document {
+    _id: string;
     sender: string | IUser;
     receiver: string | IUser;
     amount: number;

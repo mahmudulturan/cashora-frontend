@@ -109,7 +109,7 @@ const ManageUsersPage: FC = () => {
                 type="user"
             />
             <ManageUsersTable showBalance={showBalance} users={users} />
-            <div className='h-10'>
+            <div>
                 <div className='absolute bottom-0 left-0 right-0'>
                     <Pagination
                         totalPages={totalPages}
