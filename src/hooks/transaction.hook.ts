@@ -1,7 +1,8 @@
 import { sendMoney, cashOut, cashIn, getMyTransactions, getAllTransactions } from "@/services/transaction";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "@/hooks/use-toast";
-import { ITransactionPayload } from "@/types/transaction";
+import { ITransaction, ITransactionPayload } from "@/types/transaction";
+import { IResponseWithPaginationData } from "@/types/response";
 
 export const useSendMoney = () => {
     return useMutation({
@@ -57,14 +58,14 @@ export const useCashIn = () => {
 export const useGetMyTransactions = () => {
     return useQuery({
         queryKey: ['my-transactions'],
-        queryFn: async () => await getMyTransactions()
+        queryFn: async (): Promise<IResponseWithPaginationData<ITransaction[]>> => await getMyTransactions()
     })
 }
 
 export const useGetAllTransactions = () => {
     return useQuery({
         queryKey: ['all-transactions'],
-        queryFn: async () => await getAllTransactions()
+        queryFn: async (): Promise<IResponseWithPaginationData<ITransaction[]>> => await getAllTransactions()
     })
 }
 
