@@ -3,9 +3,12 @@ import UserQuickActions from './components/user-quick-actions';
 import RecentTransactions from './components/recent-transactions';
 import { useAuth } from '@/hooks/auth.hook';
 import AgentQuickActions from './components/agent-quick-actions';
+import { useGetMyTransactions } from '@/hooks/transaction.hook';
 
 const HomePage: FC = () => {
     const { user } = useAuth();
+    const { data: transactions, isLoading } = useGetMyTransactions('page=1&limit=3');
+    
     return (
         <main className="wrapper space-y-8 pb-8">
             {user?.role === 'user' && <UserQuickActions />}
@@ -19,7 +22,7 @@ const HomePage: FC = () => {
                     <AgentQuickActions />)
             }
             {
-                user?.status !== 'pending' && <RecentTransactions />
+                user?.status !== 'pending' && <RecentTransactions isLoading={isLoading} transactions={transactions?.data.result} />
             }
         </main>
     );

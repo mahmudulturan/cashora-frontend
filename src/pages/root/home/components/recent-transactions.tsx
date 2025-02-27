@@ -1,24 +1,29 @@
 import Loading from '@/components/shared/loading';
-import { useGetMyTransactions } from '@/hooks/transaction.hook';
+import { ITransaction } from '@/types/transaction';
 import { IUser } from '@/types/user';
 import formatDate from '@/utils/formatDate';
 import { FC } from 'react';
 
-const RecentTransactions: FC = () => {
-    const { data: transactions, isLoading } = useGetMyTransactions('page=1&limit=3');
+interface IRecentTransactionsProps {
+    isLoading: boolean;
+    transactions: ITransaction[] | undefined;
+}
+
+
+const RecentTransactions: FC<IRecentTransactionsProps> = ({ isLoading, transactions }) => {
 
     if (isLoading) {
         return <Loading className='h-[30vh]' />;
-    }   
+    }
 
     return (
         <section className="card-white p-6">
             {
-                transactions?.data?.result && transactions?.data?.result.length > 0 ? (
+                transactions && transactions.length > 0 ? (
                     <>
                         <h2 className="text-xl font-bold mb-6">Recent Transactions</h2>
                         <div className="space-y-4">
-                            {transactions?.data.result.map((transaction) => {
+                            {transactions.map((transaction) => {
                                 const receiver = transaction.receiver as IUser;
                                 const sender = transaction.sender as IUser;
                                 return (
