@@ -3,6 +3,7 @@ import { ArrowDownToLine, ArrowUpFromLine, History, Send } from 'lucide-react';
 import { FC } from 'react';
 import { Link } from 'react-router';
 import WithdrawDialog from './withdraw-dialog';
+import RequestCashDialog from './request-cash-dialog';
 
 const AgentQuickActions: FC = () => {
     return (
@@ -20,9 +21,7 @@ const AgentQuickActions: FC = () => {
                 <ArrowUpFromLine className="w-8 h-8 mb-4" />
                 <h3 className="text-xl font-bold mb-2">Cash Request</h3>
                 <p className="mb-4">Request cash from admin when you need more funds</p>
-                <Link to="/cash-request">
-                    <Button className="w-full">Request Cash</Button>
-                </Link>
+                <RequestCashDialog />
             </div>
 
             <div className="card-white p-6">
