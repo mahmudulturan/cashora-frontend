@@ -5,6 +5,7 @@ import { toast } from "./use-toast";
 export const useGetCurrentUser = () => {
     return useQuery({
         queryKey: ['user'],
+        retry: false,
         queryFn: async () => await getUser()
     });
 }
