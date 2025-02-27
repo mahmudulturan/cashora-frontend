@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { FC } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -11,23 +11,32 @@ interface IPaginationProps {
         totalPage: number;
     } | undefined;
     onPageChange: (page: number) => void;
+    currentPage: number;
 }
 
-const Pagination: FC<IPaginationProps> = ({ meta, onPageChange }) => {
+const Pagination: FC<IPaginationProps> = ({ meta, onPageChange, currentPage }) => {
+    const [rememberedTotalPage, setRememberedTotalPage] = useState(meta?.totalPage || 0);
+
+    useEffect(() => {
+        if (meta?.totalPage) {
+            setRememberedTotalPage(meta.totalPage);
+        }
+    }, [meta?.totalPage]);
+
     return (
         <div className="mx-auto flex w-full justify-center gap-2">
-            <Button variant={'noShadow'} onClick={() => meta?.page && meta?.page > 1 && onPageChange(meta?.page - 1)}>
+            <Button variant={'noShadow'} onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}>
                 <ChevronLeft className="w-4 h-4" />
                 Previous
             </Button>
             <div className="flex items-center gap-2">
-                {Array.from({ length: meta?.totalPage || 0 }, (_, index) => (
-                    <Button onClick={() => onPageChange(index + 1)} key={index} variant={'noShadow'} className={cn(meta?.page === index + 1 && 'bg-black text-white')}>
+                {Array.from({ length: rememberedTotalPage }, (_, index) => (
+                    <Button onClick={() => onPageChange(index + 1)} key={index} variant={'noShadow'} className={cn(currentPage === index + 1 && 'bg-black text-white')}>
                         {index + 1}
                     </Button>
                 ))}
             </div>
-            <Button variant={'noShadow'} onClick={() => meta?.page && meta?.page < meta?.totalPage && onPageChange(meta?.page + 1)}>
+            <Button variant={'noShadow'} onClick={() => currentPage < rememberedTotalPage && onPageChange(currentPage + 1)}>
                 Next
                 <ChevronRight className="w-4 h-4" />
             </Button>

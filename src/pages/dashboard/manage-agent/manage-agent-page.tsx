@@ -32,6 +32,7 @@ const ManageAgentPage: FC = () => {
                     <Pagination
                         meta={data?.data.meta}
                         onPageChange={setCurrentPage}
+                        currentPage={currentPage}
                     />
                 </div>
             </div>
