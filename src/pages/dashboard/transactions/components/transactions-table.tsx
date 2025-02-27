@@ -27,7 +27,7 @@ const TransactionsTable: FC<ITransactionsTableProps> = ({ transactions, loading,
         <div style={{ minWidth: "100%", display: "table" }} className="card-white overflow-hidden">
             <div className={`relative w-full overflow-auto ${size === 'lg' ? 'max-h-[calc(100vh-200px)]' : 'max-h-[calc(100vh-310px)]'}`}>
                 {
-                    loading ? <Loading className={`h-[${size === 'lg' ? 'calc(100vh-200px)' : 'calc(100vh-310px)'}`} />
+                    loading ? <Loading className={`h-[${size === 'lg' ? 'calc(100vh-200px)' : 'calc(100vh-310px)'}]`} />
                         :
                         <Table className="w-full">
                             <TableHeader className="sticky top-0 z-20 bg-bg">
