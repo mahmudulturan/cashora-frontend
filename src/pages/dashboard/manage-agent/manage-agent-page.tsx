@@ -11,7 +11,7 @@ const ManageAgentPage: FC = () => {
     const [status, setStatus] = useState<'all' | 'active' | 'blocked'>(searchParams.get('status') as 'all' | 'active' | 'blocked' || 'all');
     const [searchKey, setSearchKey] = useState(searchParams.get('searchKey') || '');
     const [currentPage, setCurrentPage] = useState<number>(Number(searchParams.get('page')) || 1);
-    const query = `page=${currentPage}&limit=10&role=agent${searchKey ? `&search=${searchKey}` : ''}${status !== 'all' ? `&status=${status}` : ''}`;
+    const query = `page=${currentPage}&limit=10&role=agent${searchKey ? `&searchKey=${searchKey}` : ''}${status !== 'all' ? `&status=${status}` : ''}`;
     const { data, isLoading: isLoadingUsers } = useGetAllUsers(query);
 
     return (
