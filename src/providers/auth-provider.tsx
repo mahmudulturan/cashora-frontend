@@ -1,5 +1,4 @@
 import { useGetCurrentUser } from '@/hooks/user.hook';
-import { getUser } from '@/services/user';
 import { IUser } from '@/types/user';
 import { createContext, Dispatch, FC, ReactNode, SetStateAction, useEffect, useState } from 'react';
 interface IAuthContext {
