@@ -27,8 +27,8 @@ const MainRoutes: FC = () => {
         <Route path="register" element={<RegisterPage />} />
       </Route>
 
-      {/* Protected Routes */}
-      <Route element={<AuthGuard><RootLayout /></AuthGuard>}>
+      {/* Regular User Routes */}
+      <Route element={<AuthGuard allowedRoles={['user', 'agent']}><RootLayout /></AuthGuard>}>
         <Route index element={<HomePage />} />
         <Route path="send-money" element={<SendMoneyPage />} />
         <Route path="cash-out" element={<CashOutPage />} />
@@ -36,7 +36,8 @@ const MainRoutes: FC = () => {
         <Route path="my-transactions" element={<MyTransactionsPage />} />
       </Route>
 
-      <Route element={<AuthGuard><DashboardLayout /></AuthGuard>}>
+      {/* Admin Routes */}
+      <Route element={<AuthGuard allowedRoles={['admin']}><DashboardLayout /></AuthGuard>}>
         <Route path="dashboard">
           <Route path="admin" element={<AdminPage />} />
           <Route path="manage-users" element={<ManageUsersPage />} />
