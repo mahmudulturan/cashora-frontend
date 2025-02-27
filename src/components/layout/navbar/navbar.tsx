@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Bell, ChevronDown, Eye, EyeOff, LogOut, Wallet } from 'lucide-react';
+import { ArrowDownToLine, Bell, ChevronDown, Eye, EyeOff, History, Home, LogOut, Send, Wallet } from 'lucide-react';
 import { User } from 'lucide-react';
 import { FC, useState } from 'react';
 import useOutsideClick from '@/hooks/outside-click.hook';
@@ -18,10 +18,10 @@ const Navbar: FC = () => {
 
     return (
         <nav className="card-white border-b-[3px] border-black p-0 mb-8">
-            <div className="wrapper flex items-center justify-between">
+            <div className="max-w-7xl mx-auto md:px-4 flex items-center justify-between px-2">
                 {/* User Info Section */}
                 <div className="flex items-center">
-                    <Link to="/">
+                    <Link to="/" className='hidden md:block'>
                         <div className="card-yellow p-4 border-r-[3px] border-black">
                             <div className="w-10 h-10 rounded-full bg-white border-[3px] border-black flex items-center justify-center">
                                 <User className="w-5 h-5" />
@@ -31,7 +31,7 @@ const Navbar: FC = () => {
                     <div className="relative" ref={userMenuRef}>
                         <button
                             onClick={() => setShowUserMenu(!showUserMenu)}
-                            className="flex items-center gap-2 px-4 py-4 hover:bg-black/5"
+                            className="flex items-center gap-2 md:px-4 md:py-4 hover:bg-black/5"
                         >
                             <div>
                                 <p className="font-bold">{user?.name.fullName}</p>
@@ -41,13 +41,56 @@ const Navbar: FC = () => {
                         </button>
 
                         {showUserMenu && (
-                            <div className="absolute top-full left-0 card-white w-48 py-2 z-10">
-                                <Link to="/profile">
+                            <div className="absolute top-full left-0 card-white w-48 py-2 z-50">
+                                <Link onClick={() => setShowUserMenu(false)} to="/cash-in">
                                     <button className="w-full text-left px-4 py-2 hover:bg-black/5 flex items-center gap-2">
-                                        <User className="w-4 h-4" />
-                                        <span>Profile</span>
+                                        <Home className="w-4 h-4" />
+                                        <span>Home</span>
                                     </button>
                                 </Link>
+                                {
+                                    user?.role === 'user' && (
+                                        <>
+                                            <Link onClick={() => setShowUserMenu(false)} to="/send-money">
+                                                <button className="w-full text-left px-4 py-2 hover:bg-black/5 flex items-center gap-2">
+                                                    <Send className="w-4 h-4" />
+                                                    <span>Send Money</span>
+                                                </button>
+                                            </Link>
+                                            <Link onClick={() => setShowUserMenu(false)} to="/cash-out">
+                                                <button className="w-full text-left px-4 py-2 hover:bg-black/5 flex items-center gap-2">
+                                                    <ArrowDownToLine className="w-4 h-4" />
+                                                    <span>Cash Out</span>
+                                                </button>
+                                            </Link>
+                                            <Link onClick={() => setShowUserMenu(false)} to="/my-transactions">
+                                                <button className="w-full text-left px-4 py-2 hover:bg-black/5 flex items-center gap-2">
+                                                    <History className="w-4 h-4" />
+                                                    <span>My Transactions</span>
+                                                </button>
+                                            </Link>
+                                        </>
+                                    )
+                                }
+                                {
+                                    user?.role === 'agent' && (
+                                        <>
+                                            <Link onClick={() => setShowUserMenu(false)} to="/cash-in">
+                                                <button className="w-full text-left px-4 py-2 hover:bg-black/5 flex items-center gap-2">
+                                                    <Send className="w-4 h-4" />
+                                                    <span>Cash In</span>
+                                                </button>
+                                            </Link>
+                                            <Link onClick={() => setShowUserMenu(false)} to="/my-transactions">
+                                                <button className="w-full text-left px-4 py-2 hover:bg-black/5 flex items-center gap-2">
+                                                    <History className="w-4 h-4" />
+                                                    <span>My Transactions</span>
+                                                </button>
+                                            </Link>
+                                        </>
+                                    )
+                                }
+
                                 <button
                                     onClick={handleLogout}
                                     disabled={isPending}
@@ -67,7 +110,7 @@ const Navbar: FC = () => {
                         <div>
                             <p className="text-xs font-medium">Your Balance</p>
                             <p className="font-bold">
-                                {showBalance ? `৳ ${user?.balance}` : '৳ ••••••'}
+                                {showBalance ? `৳ ${user?.balance}` : '৳ ••••'}
                             </p>
                         </div>
                     </div>
@@ -80,7 +123,7 @@ const Navbar: FC = () => {
                             {showBalance ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                         </Button>
 
-                        <Button className="p-4">
+                        <Button className="p-4 hidden md:flex">
                             <Bell className="w-5 h-5" />
                         </Button>
                     </div>
