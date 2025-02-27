@@ -37,7 +37,7 @@ const WithdrawDialog: FC = () => {
                 <div className="grid gap-4 py-4">
                     <Label htmlFor="amount">Amount</Label>
                     <div className="relative">
-                        <Banknote className="z-10 absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
+                        <Banknote className="z-10 absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 z-10" />
                         <Input
                             name="amount"
                             onChange={(e) => setAmount(Number(e.target.value))}

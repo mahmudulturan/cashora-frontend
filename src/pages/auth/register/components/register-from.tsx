@@ -1,8 +1,8 @@
-import { IdCard, Key, Mail, User, UserCog } from 'lucide-react';
+import { Eye, IdCard, Key, Mail, User, UserCog } from 'lucide-react';
 // import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Phone } from 'lucide-react';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link, useNavigate } from 'react-router';
 import Form from '@/components/shared/form/form';
@@ -12,6 +12,7 @@ import FormSelect from '@/components/shared/form/form-select';
 import { useRegisterUser } from '@/hooks/auth.hook';
 
 const RegisterForm: FC = () => {
+    const [showPassword, setShowPassword] = useState(false);
     const { mutate: registerUser, isPending: isRegistering, isSuccess: isRegistered } = useRegisterUser();
     const navigate = useNavigate();
 
@@ -32,7 +33,7 @@ const RegisterForm: FC = () => {
                 <div className="flex-1">
                     <Label htmlFor="firstName">First Name</Label>
                     <div className="relative">
-                        <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
+                        <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 z-10" />
                         <FormInput
                             name="name.firstName"
                             type="text"
@@ -45,7 +46,7 @@ const RegisterForm: FC = () => {
                 <div className="flex-1">
                     <Label htmlFor="lastName">Last Name</Label>
                     <div className="relative">
-                        <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
+                        <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 z-10" />
                         <FormInput
                             name="name.lastName"
                             type="text"
@@ -59,7 +60,7 @@ const RegisterForm: FC = () => {
             <div>
                 <Label htmlFor="nid">NID</Label>
                 <div className="relative">
-                    <IdCard className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
+                    <IdCard className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 z-10" />
                     <FormInput
                         name="nid"
                         type="text"
@@ -74,7 +75,7 @@ const RegisterForm: FC = () => {
             <div>
                 <Label htmlFor="email">Email</Label>
                 <div className="relative">
-                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 z-10" />
                     <FormInput
                         name="email"
                         type="email"
@@ -87,7 +88,7 @@ const RegisterForm: FC = () => {
             <div>
                 <Label htmlFor="phone">Phone Number</Label>
                 <div className="relative">
-                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
+                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 z-10" />
                     <FormInput
                         name="phone"
                         type="tel"
@@ -103,7 +104,7 @@ const RegisterForm: FC = () => {
             <div>
                 <Label htmlFor="role">Account Type</Label>
                 <div className="relative">
-                    <UserCog className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
+                    <UserCog className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 z-10" />
                     <FormSelect
                         name="role"
                         id='role'
@@ -118,15 +119,18 @@ const RegisterForm: FC = () => {
             <div>
                 <Label htmlFor="pin">PIN</Label>
                 <div className="relative">
-                    <Key className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
+                    <Key className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 z-10" />
                     <FormInput
                         name="pin"
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         id="pin"
                         className="pl-12 w-full"
                         placeholder="Enter your 5-digit PIN"
                         maxLength={5}
                     />
+                    <span className='absolute right-1 top-1/2 -translate-y-1/2 bg-transparent border-none px-3 p-2 hover:bg-slate-300 cursor-pointer' onClick={() => setShowPassword(!showPassword)}>
+                        <Eye className="w-5 h-5" />
+                    </span>
                 </div>
             </div>
 

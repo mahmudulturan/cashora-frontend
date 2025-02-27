@@ -20,7 +20,7 @@ const UserSearchFilter: FC<IUserSearchFilterProps> = ({ searchTerm, setSearchTer
             <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
                 <div className="flex-1">
                     <div className="relative">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 z-10 text-gray-400" />
                         <Input
                             type="text"
                             placeholder="Search by name, phone, or email..."

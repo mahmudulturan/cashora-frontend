@@ -68,7 +68,7 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
                     <div>
                         <label className="block font-bold mb-2" htmlFor="receiver">Receiver's Phone Number</label>
                         <div className="relative">
-                            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
+                            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 z-10" />
                             <Input
                                 type="tel"
                                 id="receiver"
@@ -94,7 +94,7 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
                     <div>
                         <label className="block font-bold mb-2" htmlFor="amount">Amount</label>
                         <div className="relative">
-                            <Calculator className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
+                            <Calculator className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 z-10" />
                             <Input
                                 type="number"
                                 id="amount"
@@ -140,7 +140,7 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
                     <div>
                         <label className="block font-bold mb-2" htmlFor="pin">Enter PIN to Confirm</label>
                         <div className="relative">
-                            <Key className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" />
+                            <Key className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 z-10" />
                             <Input
                                 type="password"
                                 id="pin"
