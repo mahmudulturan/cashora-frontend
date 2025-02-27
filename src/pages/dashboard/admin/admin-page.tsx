@@ -5,6 +5,7 @@ import { Activity, ArrowRight, Eye, EyeOff, Search } from 'lucide-react';
 import { FC, useState } from 'react';
 import AdminStats from './components/admin-stats';
 import formatDate from '@/utils/formatDate';
+import { Link } from 'react-router';
 
 interface Transaction {
     id: string;
@@ -21,7 +22,7 @@ interface Transaction {
 
 const AdminPage: FC = () => {
     const [showAmounts, setShowAmounts] = useState(false);
-    const [searchKey, setSearchKey] = useState('');
+    const [searchTerm, setSearchKey] = useState('');
 
     const recentTransactions: Transaction[] = [
         {
@@ -93,10 +94,10 @@ const AdminPage: FC = () => {
         <div className="wrapper space-y-6">
             {/* Header */}
             <div className="flex items-start justify-between gap-3 mb-8">
-                <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+                <h1 className="text-xl md:text-3xl font-bold">Admin Dashboard</h1>
                 <Button
                     onClick={() => setShowAmounts(!showAmounts)}
-                    className="bg-white"
+                    className="bg-white hidden lg:block"
                 >
                     {showAmounts ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </Button>
@@ -117,7 +118,7 @@ const AdminPage: FC = () => {
                         <Input
                             type="text"
                             placeholder="Search transactions..."
-                            value={searchKey}
+                            value={searchTerm}
                             onChange={(e) => setSearchKey(e.target.value)}
                             className="pl-10"
                         />
@@ -167,10 +168,12 @@ const AdminPage: FC = () => {
                     </table>
                 </div>
                 <div className="mt-4 flex justify-center">
-                    <Button className="bg-white flex items-center gap-2">
-                        View All Transactions
-                        <ArrowRight className="w-4 h-4" />
-                    </Button>
+                    <Link to={'/dashboard/transactions'}>
+                        <Button className="bg-white flex items-center gap-2">
+                            View All Transactions
+                            <ArrowRight className="w-4 h-4" />
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </div>

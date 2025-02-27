@@ -5,9 +5,9 @@ const DashboardLayout: FC = () => {
     const [sidebarOpen, setSidebarOpen] = useState(true);
     
     return (
-        <div className="flex min-h-screen bg-[#FCFCF7]">
+        <div className="lg:flex lg:min-h-screen">
             <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-            <main className="flex-1 p-6">
+            <main className="flex-1 p-4 lg:p-6">
                 <Outlet />
             </main>
         </div>

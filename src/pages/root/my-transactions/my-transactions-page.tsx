@@ -13,7 +13,7 @@ const MyTransactionsPage: FC = () => {
     return (
         <div className="wrapper space-y-6 h-[calc(100vh-126px)] relative">
             <div className="flex items-center gap-3 mb-8">
-                <h1 className="text-3xl font-bold">My Transactions</h1>
+                <h1 className="text-xl md:text-3xl font-bold">My Transactions</h1>
             </div>
             <TransactionsTable loading={isLoading} transactions={transactions?.data.result} />
             <div>

@@ -17,7 +17,7 @@ const ManageAgentPage: FC = () => {
     return (
         <div className="wrapper space-y-6 h-[calc(100vh-48px)] relative">
             <div className="flex items-center gap-3 mb-8">
-                <h1 className="text-3xl font-bold">Manage Agents</h1>
+                <h1 className="text-xl md:text-3xl font-bold">Manage Agents</h1>
             </div>
             <UserSearchFilter
                 searchKey={searchKey}
