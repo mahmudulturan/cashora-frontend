@@ -1,25 +1,15 @@
 import formatAmount from '@/utils/formatAmount';
 import { Wallet, ArrowUpRight, CircleDollarSign, Activity, BarChart3, ArrowDownRight, Users, UserCheck, UserX, Shield, Clock } from 'lucide-react';
 import { FC } from 'react';
-
+import { IAdminStats } from '@/types/stats';
 interface IAdminStatsProps {
     showAmounts: boolean;
+    stats: IAdminStats | undefined;
 }
 
-const AdminStats: FC<IAdminStatsProps> = ({ showAmounts }) => {
+const AdminStats: FC<IAdminStatsProps> = ({ showAmounts, stats }) => {
 
-    const stats = {
-        totalUsers: 15234,
-        activeUsers: 12453,
-        blockedUsers: 781,
-        totalAgents: 543,
-        activeAgents: 498,
-        pendingAgents: 45,
-        totalMoneyInSystem: 15_000_000,
-        adminIncome: 250_000,
-        todayTransactions: 1234,
-        todayVolume: 2_500_000,
-    };
+
 
     return (
         <>
@@ -35,7 +25,7 @@ const AdminStats: FC<IAdminStatsProps> = ({ showAmounts }) => {
                     </div>
                     <p className="text-sm text-gray-600 mb-1">Total Money in System</p>
                     <p className="text-2xl font-bold">
-                        {showAmounts ? formatAmount(stats.totalMoneyInSystem) : '••••••'}
+                        {showAmounts ? formatAmount(stats?.totalSystemMoney || 0) : '••••••'}
                     </p>
                 </div>
 
@@ -49,7 +39,7 @@ const AdminStats: FC<IAdminStatsProps> = ({ showAmounts }) => {
                     </div>
                     <p className="text-sm text-gray-600 mb-1">Admin Income</p>
                     <p className="text-2xl font-bold">
-                        {showAmounts ? formatAmount(stats.adminIncome) : '••••••'}
+                        {showAmounts ? formatAmount(stats?.adminIncome || 0) : '••••••'}
                     </p>
                 </div>
 
@@ -62,7 +52,7 @@ const AdminStats: FC<IAdminStatsProps> = ({ showAmounts }) => {
                         <ArrowUpRight className="w-6 h-6 text-blue-600" />
                     </div>
                     <p className="text-sm text-gray-600 mb-1">Today's Transactions</p>
-                    <p className="text-2xl font-bold">{stats.todayTransactions}</p>
+                    <p className="text-2xl font-bold">{stats?.todayTransactions}</p>
                 </div>
 
                 {/* Today's Volume */}
@@ -75,7 +65,7 @@ const AdminStats: FC<IAdminStatsProps> = ({ showAmounts }) => {
                     </div>
                     <p className="text-sm text-gray-600 mb-1">Today's Volume</p>
                     <p className="text-2xl font-bold">
-                        {showAmounts ? formatAmount(stats.todayVolume) : '••••••'}
+                        {showAmounts ? formatAmount(stats?.todayVolume || 0) : '••••••'}
                     </p>
                 </div>
             </div>
@@ -94,21 +84,21 @@ const AdminStats: FC<IAdminStatsProps> = ({ showAmounts }) => {
                                 <Users className="w-5 h-5 text-gray-600" />
                                 <span>Total Users</span>
                             </div>
-                            <span className="font-bold">{stats.totalUsers}</span>
+                            <span className="font-bold">{stats?.usersOverview.totalUsers}</span>
                         </div>
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                                 <UserCheck className="w-5 h-5 text-green-600" />
                                 <span>Active Users</span>
                             </div>
-                            <span className="font-bold">{stats.activeUsers}</span>
+                            <span className="font-bold">{stats?.usersOverview.activeUsers}</span>
                         </div>
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                                 <UserX className="w-5 h-5 text-red-600" />
                                 <span>Blocked Users</span>
                             </div>
-                            <span className="font-bold">{stats.blockedUsers}</span>
+                            <span className="font-bold">{stats?.usersOverview.blockedUsers}</span>
                         </div>
                     </div>
                 </div>
@@ -125,21 +115,21 @@ const AdminStats: FC<IAdminStatsProps> = ({ showAmounts }) => {
                                 <Users className="w-5 h-5 text-gray-600" />
                                 <span>Total Agents</span>
                             </div>
-                            <span className="font-bold">{stats.totalAgents}</span>
+                            <span className="font-bold">{stats?.agentsOverview.totalAgents}</span>
                         </div>
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                                 <UserCheck className="w-5 h-5 text-green-600" />
                                 <span>Active Agents</span>
                             </div>
-                            <span className="font-bold">{stats.activeAgents}</span>
+                            <span className="font-bold">{stats?.agentsOverview.activeAgents}</span>
                         </div>
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                                 <Clock className="w-5 h-5 text-yellow-600" />
                                 <span>Pending Approval</span>
                             </div>
-                            <span className="font-bold">{stats.pendingAgents}</span>
+                            <span className="font-bold">{stats?.agentsOverview.pendingApproval}</span>
                         </div>
                     </div>
                 </div>

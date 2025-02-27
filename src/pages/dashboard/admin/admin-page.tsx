@@ -4,11 +4,17 @@ import { FC, useState } from 'react';
 import AdminStats from './components/admin-stats';
 import RecentTransactions from '@/pages/root/home/components/recent-transactions';
 import { useGetAllTransactions } from '@/hooks/transaction.hook';
-
+import { useGetAdminStats } from '@/hooks/stats.hooks';
+import Loading from '@/components/shared/loading';
 
 const AdminPage: FC = () => {
     const [showAmounts, setShowAmounts] = useState(false);
     const { data: transactions, isLoading } = useGetAllTransactions('page=1&limit=3');
+    const { data: adminStats, isLoading: isAdminStatsLoading } = useGetAdminStats();
+
+    if (isAdminStatsLoading) {
+        return <Loading />
+    }
     return (
         <div className="wrapper space-y-8">
             {/* Header */}
@@ -23,7 +29,7 @@ const AdminPage: FC = () => {
             </div>
 
 
-            <AdminStats showAmounts={showAmounts} />
+            <AdminStats showAmounts={showAmounts} stats={adminStats?.data} />
 
             {/* Recent Transactions */}
             <RecentTransactions isLoading={isLoading} transactions={transactions?.data.result} />

@@ -17,10 +17,14 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [isAuthenticating, setIsAuthenticating] = useState(true);
     const [user, setUser] = useState<IUser | null>(null);
 
-    const { data: userData } = useGetCurrentUser();
+    const { data: userData, isLoading } = useGetCurrentUser();
 
     useEffect(() => {
-        setIsAuthenticating(true);
+        if (isLoading) {
+            setIsAuthenticating(true);
+            return;
+        }
+
         if (userData?.success) {
             setUser(userData.data);
             setIsAuthenticated(true);
@@ -29,7 +33,7 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
             setIsAuthenticated(false);
         }
         setIsAuthenticating(false);
-    }, [userData]);
+    }, [userData, isLoading]);
 
 
 
