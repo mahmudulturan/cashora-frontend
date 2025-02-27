@@ -2,6 +2,7 @@ import Loading from '@/components/shared/loading';
 import { ITransaction } from '@/types/transaction';
 import { IUser } from '@/types/user';
 import formatDate from '@/utils/formatDate';
+import { Activity } from 'lucide-react';
 import { FC } from 'react';
 
 interface IRecentTransactionsProps {
@@ -21,7 +22,9 @@ const RecentTransactions: FC<IRecentTransactionsProps> = ({ isLoading, transacti
             {
                 transactions && transactions.length > 0 ? (
                     <>
-                        <h2 className="text-xl font-bold mb-6">Recent Transactions</h2>
+                        <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                            <Activity className="w-6 h-6" />
+                            Recent Transactions</h2>
                         <div className="space-y-4">
                             {transactions.map((transaction) => {
                                 const receiver = transaction.receiver as IUser;

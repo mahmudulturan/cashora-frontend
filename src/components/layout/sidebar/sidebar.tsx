@@ -66,7 +66,7 @@ const Sidebar: FC<ISidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
             </aside>
             <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="p-2 hover:bg-slate-200 rounded-lg fixed top-4 right-4 z-50"
+                className="p-2 hover:bg-slate-200 rounded-lg fixed top-4 right-4 z-50 lg:hidden"
             >
                 {sidebarOpen ? <ChevronLeft className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>

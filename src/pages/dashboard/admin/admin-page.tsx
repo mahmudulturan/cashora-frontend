@@ -10,7 +10,7 @@ const AdminPage: FC = () => {
     const [showAmounts, setShowAmounts] = useState(false);
     const { data: transactions, isLoading } = useGetAllTransactions('page=1&limit=3');
     return (
-        <div className="wrapper space-y-6">
+        <div className="wrapper space-y-8">
             {/* Header */}
             <div className="flex items-start justify-between gap-3 mb-8">
                 <h1 className="text-xl md:text-3xl font-bold">Admin Dashboard</h1>
