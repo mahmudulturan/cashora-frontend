@@ -3,10 +3,10 @@ import { getAllUsers, updateUserStatus } from "@/services/user";
 import { toast } from "./use-toast";
 
 
-export const useGetAllUsers = (status?: string) => {
+export const useGetAllUsers = (query?: string) => {
     return useQuery({
-        queryKey: ['users', status],
-        queryFn: async () => await getAllUsers()
+        queryKey: ['users', query],
+        queryFn: async () => await getAllUsers(query)
     });
 }
 

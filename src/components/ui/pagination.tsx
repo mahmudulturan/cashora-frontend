@@ -4,26 +4,30 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface IPaginationProps {
-    totalPages: number;
-    currentPage: number;
+    meta: {
+        page: number;
+        limit: number;
+        totalData: number;
+        totalPage: number;
+    } | undefined;
     onPageChange: (page: number) => void;
 }
 
-const Pagination: FC<IPaginationProps> = ({ totalPages, currentPage, onPageChange }) => {
+const Pagination: FC<IPaginationProps> = ({ meta, onPageChange }) => {
     return (
         <div className="mx-auto flex w-full justify-center gap-2">
-            <Button variant={'noShadow'} onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}>
+            <Button variant={'noShadow'} onClick={() => meta?.page && meta?.page > 1 && onPageChange(meta?.page - 1)}>
                 <ChevronLeft className="w-4 h-4" />
                 Previous
             </Button>
             <div className="flex items-center gap-2">
-                {Array.from({ length: totalPages }, (_, index) => (
-                    <Button onClick={() => onPageChange(index + 1)} key={index} variant={'noShadow'} className={cn(currentPage === index + 1 && 'bg-black text-white')}>
+                {Array.from({ length: meta?.totalPage || 0 }, (_, index) => (
+                    <Button onClick={() => onPageChange(index + 1)} key={index} variant={'noShadow'} className={cn(meta?.page === index + 1 && 'bg-black text-white')}>
                         {index + 1}
                     </Button>
                 ))}
             </div>
-            <Button variant={'noShadow'} onClick={() => currentPage < totalPages && onPageChange(currentPage + 1)}>
+            <Button variant={'noShadow'} onClick={() => meta?.page && meta?.page < meta?.totalPage && onPageChange(meta?.page + 1)}>
                 Next
                 <ChevronRight className="w-4 h-4" />
             </Button>

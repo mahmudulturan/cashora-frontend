@@ -7,8 +7,8 @@ export const getUser = async (): Promise<IResponseWithData<IUser>> => {
     return response.data;
 }
 
-export const getAllUsers = async (): Promise<IResponseWithPaginationData<IUser[]>> => {
-    const response = await axiosInstance.get('/user/all');
+export const getAllUsers = async (query?: string): Promise<IResponseWithPaginationData<IUser[]>> => {
+    const response = await axiosInstance.get(`/user/all${query ? `?${query}` : ''}`);
     return response.data;
 }
 
