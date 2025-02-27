@@ -1,5 +1,5 @@
 import axiosInstance from "@/lib/axiosInstances";
-import { IResponseWithData } from "@/types/response";
+import { IResponseWithData, IResponseWithPaginationData } from "@/types/response";
 import { IUser } from "@/types/user";
 
 export const getUser = async (): Promise<IResponseWithData<IUser>> => {
@@ -7,7 +7,7 @@ export const getUser = async (): Promise<IResponseWithData<IUser>> => {
     return response.data;
 }
 
-export const getAllUsers = async (): Promise<IResponseWithData<IUser[]>> => {
+export const getAllUsers = async (): Promise<IResponseWithPaginationData<IUser[]>> => {
     const response = await axiosInstance.get('/user/all');
     return response.data;
 }

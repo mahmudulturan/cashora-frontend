@@ -1,6 +1,5 @@
 import {
     AlertDialog,
-    AlertDialogAction,
     AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
@@ -10,15 +9,31 @@ import {
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
-import { FC } from 'react';
+import { useUpdateUserStatus } from '@/hooks/user.hook';
+import { FC, useEffect, useState } from 'react';
 
 interface IUpdateUserStatusProps {
     status: 'pending' | 'active' | 'blocked';
+    userId: string;
 }
 
-const UpdateUserStatus: FC<IUpdateUserStatusProps> = ({ status }) => {
+const UpdateUserStatus: FC<IUpdateUserStatusProps> = ({ status, userId }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const { mutate: updateUserStatus, isPending: isUpdating, isSuccess: isUpdated } = useUpdateUserStatus();
+
+
+    const handleUpdateUserStatus = () => {
+        updateUserStatus({ userId, status: status === 'pending' ? 'active' : status === 'active' ? 'blocked' : 'active' });
+    }
+
+    useEffect(() => {
+        if (isUpdated && !isUpdating) {
+            setIsOpen(false);
+        }
+    }, [isUpdated, isUpdating]);
+
     return (
-        <AlertDialog>
+        <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
             <AlertDialogTrigger asChild>
                 <Button
                     className={`w-32 ${status === 'pending' ? 'bg-main' : status === 'blocked' ? 'bg-green-500' : 'bg-red-500'
@@ -41,14 +56,14 @@ const UpdateUserStatus: FC<IUpdateUserStatusProps> = ({ status }) => {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction asChild>
-                        <Button
-                            className={`w-32 ${status === 'pending' ? 'bg-main' : status === 'blocked' ? 'bg-green-500' : 'bg-red-500'
-                                } text-white`}
-                        >
-                            {status === 'pending' ? 'Approve' : status === 'active' ? 'Block' : 'Unblock'}
-                        </Button>
-                    </AlertDialogAction>
+                    <Button
+                        loading={isUpdating}
+                        onClick={handleUpdateUserStatus}
+                        className={`w-32 ${status === 'pending' ? 'bg-main' : status === 'blocked' ? 'bg-green-500' : 'bg-red-500'
+                            } text-white`}
+                    >
+                        {status === 'pending' ? 'Approve' : status === 'active' ? 'Block' : 'Unblock'}
+                    </Button>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
