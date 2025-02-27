@@ -6,6 +6,7 @@ import WithdrawDialog from './withdraw-dialog';
 import RequestCashDialog from './request-cash-dialog';
 
 const AgentQuickActions: FC = () => {
+
     return (
         <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <div className="card-white p-6">
