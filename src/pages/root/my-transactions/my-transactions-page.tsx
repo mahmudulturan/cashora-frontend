@@ -2,11 +2,13 @@ import Pagination from '@/components/ui/pagination';
 import TransactionsTable from '@/pages/dashboard/transactions/components/transactions-table';
 import { FC, useState } from 'react';
 import { useGetMyTransactions } from '@/hooks/transaction.hook';
+import { useSearchParams } from 'react-router';
 
 const MyTransactionsPage: FC = () => {
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, _setTotalPages] = useState(3);
-    const { data: transactions, isLoading } = useGetMyTransactions();
+    const [searchParams] = useSearchParams();
+    const [currentPage, setCurrentPage] = useState<number>(Number(searchParams.get('page')) || 1);
+    const query = `page=${currentPage}&limit=10`;
+    const { data: transactions, isLoading } = useGetMyTransactions(query);
 
     return (
         <div className="wrapper space-y-6 h-[calc(100vh-126px)] relative">
@@ -17,7 +19,7 @@ const MyTransactionsPage: FC = () => {
             <div>
                 <div className='absolute bottom-4 left-0 right-0'>
                     <Pagination
-                        totalPages={totalPages}
+                        meta={transactions?.data.meta}
                         currentPage={currentPage}
                         onPageChange={setCurrentPage}
                     />

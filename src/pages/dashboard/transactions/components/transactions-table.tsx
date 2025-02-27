@@ -18,15 +18,16 @@ import Loading from '@/components/shared/loading';
 interface ITransactionsTableProps {
     transactions: ITransaction[] | undefined;
     loading: boolean;
+    size?: 'sm' | 'lg';
 }
 
 
-const TransactionsTable: FC<ITransactionsTableProps> = ({ transactions, loading }) => {
+const TransactionsTable: FC<ITransactionsTableProps> = ({ transactions, loading, size = 'sm' }) => {
     return (
         <div style={{ minWidth: "100%", display: "table" }} className="card-white overflow-hidden">
-            <div className="relative w-full max-h-[calc(100vh-310px)] overflow-auto">
+            <div className={`relative w-full overflow-auto ${size === 'lg' ? 'max-h-[calc(100vh-250px)]' : 'max-h-[calc(100vh-310px)]'}`}>
                 {
-                    loading ? <Loading className='h-[calc(100vh-310px)]' />
+                    loading ? <Loading className={`h-[${size === 'lg' ? 'calc(100vh-250px)' : 'calc(100vh-310px)'}`} />
                         :
                         <Table className="w-full">
                             <TableHeader className="sticky top-0 z-20 bg-bg">

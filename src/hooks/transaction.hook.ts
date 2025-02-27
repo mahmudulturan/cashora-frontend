@@ -55,17 +55,17 @@ export const useCashIn = () => {
 }
 
 
-export const useGetMyTransactions = () => {
+export const useGetMyTransactions = (query: string) => {
     return useQuery({
-        queryKey: ['my-transactions'],
-        queryFn: async (): Promise<IResponseWithPaginationData<ITransaction[]>> => await getMyTransactions()
+        queryKey: ['my-transactions', query],
+        queryFn: async (): Promise<IResponseWithPaginationData<ITransaction[]>> => await getMyTransactions(query)
     })
 }
 
-export const useGetAllTransactions = () => {
+export const useGetAllTransactions = (query: string) => {
     return useQuery({
-        queryKey: ['all-transactions'],
-        queryFn: async (): Promise<IResponseWithPaginationData<ITransaction[]>> => await getAllTransactions()
+        queryKey: ['all-transactions', query],
+        queryFn: async (): Promise<IResponseWithPaginationData<ITransaction[]>> => await getAllTransactions(query)
     })
 }
 

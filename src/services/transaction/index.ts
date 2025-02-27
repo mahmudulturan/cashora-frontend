@@ -20,13 +20,13 @@ export const cashIn: TTransactionMutation = async (data) => {
 }
 
 
-export const getMyTransactions = async () => {
-    const response = await axiosInstance.get('/transaction/history?populate=sender,receiver');
+export const getMyTransactions = async (query: string) => {
+    const response = await axiosInstance.get(`/transaction/history?populate=sender,receiver&${query}`);
     return response.data;
 }
 
-export const getAllTransactions = async () => {
-    const response = await axiosInstance.get('/transaction/all-history');
+export const getAllTransactions = async (query: string) => {
+    const response = await axiosInstance.get(`/transaction/all-history?populate=sender,receiver&${query}`);
     return response.data;
 }
 

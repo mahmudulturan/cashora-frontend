@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import ManageUsersTable from '../components/shared/manage-users-table';
 import UserSearchFilter from '../components/shared/user-search-filter';
 import Pagination from '../../../components/ui/pagination';
@@ -13,6 +13,11 @@ const ManageUsersPage: FC = () => {
     const [currentPage, setCurrentPage] = useState<number>(Number(searchParams.get('page')) || 1);
     const query = `page=${currentPage}&limit=10&role=user${searchKey ? `&searchKey=${searchKey}` : ''}${status !== 'all' ? `&status=${status}` : ''}`;
     const { data, isLoading: isLoadingUsers } = useGetAllUsers(query);
+
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [status, searchKey]);
 
     return (
         <div className="wrapper space-y-6 h-[calc(100vh-48px)] relative">
