@@ -1,6 +1,5 @@
 import StepsIndicator from '@/components/shared/steps-indicator';
 import { Button } from '@/components/ui/button';
-import calculateTransactionFee from '@/utils/calculateTransactionFee';
 import { CheckCircle2, XCircle, HandCoins } from 'lucide-react';
 import { FC, useState } from 'react';
 import { Link } from 'react-router';
@@ -43,7 +42,7 @@ const CashInPage: FC = () => {
                                 <p><span className="font-bold">Customer Number:</span> {formData.receiver}</p>
                                 <p><span className="font-bold">Amount:</span> ৳{formData.amount}</p>
                                 <p><span className="font-bold">Fee:</span> ৳0</p>
-                                <p><span className="font-bold">Total:</span> ৳{Number(formData.amount) + calculateTransactionFee(Number(formData.amount), 'cash_out')}</p>
+                                <p><span className="font-bold">Total:</span> ৳{Number(formData.amount)}</p>
                             </div>
                         </div>
                         <Link to="/">

@@ -4,7 +4,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import HoldButton from '@/components/shared/hold-button';
 import { useCashIn } from '@/hooks/transaction.hook';
-    
+import { useSearchParams } from 'react-router';
+
 interface ICashInFormProps {
     step: number;
     setStep: Dispatch<SetStateAction<number>>;
@@ -25,7 +26,7 @@ interface ICashInFormProps {
 
 const CashInForm: FC<ICashInFormProps> = ({ step, setStep, setShowConfirmation, setIsSuccess, formData, setFormData }) => {
     const { mutate: cashIn, isPending: isSending, isSuccess: isSendSuccess } = useCashIn();
-
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -37,6 +38,10 @@ const CashInForm: FC<ICashInFormProps> = ({ step, setStep, setShowConfirmation, 
         e.preventDefault();
         if (step < 3) {
             setStep(step + 1);
+            setSearchParams(prev => {
+                prev.set('step', (step + 1).toString());
+                return prev;
+            });
         }
     };
 
@@ -56,6 +61,18 @@ const CashInForm: FC<ICashInFormProps> = ({ step, setStep, setShowConfirmation, 
             setIsSuccess(true);
         }
     }, [isSendSuccess, isSending]);
+
+    useEffect(() => {
+        if (searchParams.get('step')) {
+            setStep(Number(searchParams.get('step')));
+        } else {
+            setStep(1);
+            setSearchParams(prev => {
+                prev.set('step', '1');
+                return prev;
+            });
+        }
+    }, [searchParams]);
 
     return (
         <form onSubmit={handleSubmit} className="card-white rounded-lg p-8">

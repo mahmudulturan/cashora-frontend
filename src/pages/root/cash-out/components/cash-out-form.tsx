@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import HoldButton from '@/components/shared/hold-button';
 import { useCashOut } from '@/hooks/transaction.hook';
 import calculateTransactionFee from '@/utils/calculateTransactionFee';
+import { useSearchParams } from 'react-router';
 
 interface ICashOutFormProps {
     step: number;
@@ -25,6 +26,7 @@ interface ICashOutFormProps {
 
 
 const CashOutForm: FC<ICashOutFormProps> = ({ step, setStep, setShowConfirmation, setIsSuccess, formData, setFormData }) => {
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const { mutate: cashOut, isPending: isSending, isSuccess: isSendSuccess } = useCashOut();
 
@@ -34,11 +36,14 @@ const CashOutForm: FC<ICashOutFormProps> = ({ step, setStep, setShowConfirmation
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         if (step < 3) {
             setStep(step + 1);
+            setSearchParams(prev => {
+                prev.set('step', (step + 1).toString());
+                return prev;
+            });
         }
     };
 
@@ -58,6 +63,18 @@ const CashOutForm: FC<ICashOutFormProps> = ({ step, setStep, setShowConfirmation
             setIsSuccess(true);
         }
     }, [isSendSuccess, isSending]);
+
+    useEffect(() => {
+        if (searchParams.get('step')) {
+            setStep(Number(searchParams.get('step')));
+        } else {
+            setStep(1);
+            setSearchParams(prev => {
+                prev.set('step', '1');
+                return prev;
+            });
+        }
+    }, [searchParams]);
 
     return (
         <form onSubmit={handleSubmit} className="card-white rounded-lg p-8">

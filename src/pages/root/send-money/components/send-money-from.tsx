@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import HoldButton from '@/components/shared/hold-button';
 import { useSendMoney } from '@/hooks/transaction.hook';
+import { useSearchParams } from 'react-router';
 
 interface ISendMoneyFromProps {
     step: number;
@@ -24,6 +25,7 @@ interface ISendMoneyFromProps {
 
 
 const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirmation, setIsSuccess, formData, setFormData }) => {
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const { mutate: sendMoney, isPending: isSending, isSuccess: isSendSuccess } = useSendMoney();
 
@@ -41,6 +43,10 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
         e.preventDefault();
         if (step < 3) {
             setStep(step + 1);
+            setSearchParams(prev => {
+                prev.set('step', (step + 1).toString());
+                return prev;
+            });
         }
     };
 
@@ -60,6 +66,19 @@ const SendMoneyFrom: FC<ISendMoneyFromProps> = ({ step, setStep, setShowConfirma
             setIsSuccess(true);
         }
     }, [isSendSuccess, isSending]);
+
+    useEffect(() => {
+        if (searchParams.get('step')) {
+            setStep(Number(searchParams.get('step')));
+        } else {
+            setStep(1);
+            setSearchParams(prev => {
+                prev.set('step', '1');
+                return prev;
+            });
+        }
+    }, [searchParams]);
+
 
     return (
         <form onSubmit={handleSubmit} className="card-white rounded-lg p-8">
