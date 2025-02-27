@@ -5,8 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 
 interface IUserSearchFilterProps {
-    searchTerm: string;
-    setSearchTerm: (searchTerm: string) => void;
+    searchKey: string;
+    setSearchKey: (searchKey: string) => void;
     filterStatus: 'all' | 'active' | 'blocked';
     setFilterStatus: (filterStatus: 'all' | 'active' | 'blocked') => void;
     showBalance: boolean;
@@ -14,7 +14,7 @@ interface IUserSearchFilterProps {
     type: 'user' | 'agent';
 }
 
-const UserSearchFilter: FC<IUserSearchFilterProps> = ({ searchTerm, setSearchTerm, filterStatus, setFilterStatus, showBalance, setShowBalance, type }) => {
+const UserSearchFilter: FC<IUserSearchFilterProps> = ({ searchKey, setSearchKey, filterStatus, setFilterStatus, showBalance, setShowBalance, type }) => {
     return (
         <div className="card-white p-6 mb-6">
             <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
@@ -24,8 +24,8 @@ const UserSearchFilter: FC<IUserSearchFilterProps> = ({ searchTerm, setSearchTer
                         <Input
                             type="text"
                             placeholder="Search by name, phone, or email..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
+                            value={searchKey}
+                            onChange={(e) => setSearchKey(e.target.value)}
                             className="neo-input pl-12 w-full"
                         />
                     </div>

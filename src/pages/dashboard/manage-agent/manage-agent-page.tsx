@@ -9,9 +9,9 @@ const ManageAgentPage: FC = () => {
     const [searchParams] = useSearchParams();
     const [showBalance, setShowBalance] = useState(true);
     const [status, setStatus] = useState<'all' | 'active' | 'blocked'>(searchParams.get('status') as 'all' | 'active' | 'blocked' || 'all');
-    const [searchTerm, setSearchTerm] = useState(searchParams.get('searchKey') || '');
+    const [searchKey, setSearchKey] = useState(searchParams.get('searchKey') || '');
     const [currentPage, setCurrentPage] = useState<number>(Number(searchParams.get('page')) || 1);
-    const query = `page=${currentPage}&limit=10&role=agent${searchTerm ? `&search=${searchTerm}` : ''}${status !== 'all' ? `&status=${status}` : ''}`;
+    const query = `page=${currentPage}&limit=10&role=agent${searchKey ? `&search=${searchKey}` : ''}${status !== 'all' ? `&status=${status}` : ''}`;
     const { data, isLoading: isLoadingUsers } = useGetAllUsers(query);
 
     return (
@@ -20,8 +20,8 @@ const ManageAgentPage: FC = () => {
                 <h1 className="text-3xl font-bold">Manage Agents</h1>
             </div>
             <UserSearchFilter
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
+                searchKey={searchKey}
+                setSearchKey={setSearchKey}
                 filterStatus={status}
                 setFilterStatus={setStatus}
                 showBalance={showBalance}

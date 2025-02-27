@@ -21,7 +21,7 @@ interface Transaction {
 
 const AdminPage: FC = () => {
     const [showAmounts, setShowAmounts] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchKey, setSearchKey] = useState('');
 
     const recentTransactions: Transaction[] = [
         {
@@ -117,8 +117,8 @@ const AdminPage: FC = () => {
                         <Input
                             type="text"
                             placeholder="Search transactions..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
+                            value={searchKey}
+                            onChange={(e) => setSearchKey(e.target.value)}
                             className="pl-10"
                         />
                     </div>
