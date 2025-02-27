@@ -73,7 +73,7 @@ const Navbar: FC = () => {
                                     )
                                 }
                                 {
-                                    user?.role === 'agent' && (
+                                    (user?.role === 'agent' && user.status !== 'pending') && (
                                         <>
                                             <Link onClick={() => setShowUserMenu(false)} to="/cash-in">
                                                 <button className="w-full text-left px-4 py-2 hover:bg-black/5 flex items-center gap-2">

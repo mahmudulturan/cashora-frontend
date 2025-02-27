@@ -2,6 +2,21 @@
 
 A modern and responsive frontend application for the Cashora Mobile Financial Service, built with React, TypeScript, and Tailwind CSS. This project provides a user-friendly interface for financial transactions, user management, and agent operations.
 
+## 🔐 Auth Credentials
+
+**Admin Login:**
+- Email: admin@mail.com 
+- PIN: 12345
+
+**Agent Login:**
+- Email: mahmudulhasanturan@gmail.com
+- PIN: 12345
+
+**User Login:**
+- Email: notmahmudulturan@gmail.com
+- PIN: 12345
+
+
 ## 🚀 Key Features
 
 - **Multi-Role Interface**: Dedicated ui interfaces for Users, Agents, and Admin
