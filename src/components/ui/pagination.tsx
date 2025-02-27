@@ -23,20 +23,28 @@ const Pagination: FC<IPaginationProps> = ({ meta, onPageChange, currentPage }) =
         }
     }, [meta?.totalPage]);
 
+
+    const handlePageChange = (page: number) => {
+        const url = new URL(window.location.href);
+        url.searchParams.set('page', page.toString());
+        window.history.pushState({}, '', url.toString());
+        onPageChange(page);
+    }
+
     return (
         <div className="mx-auto flex w-full justify-center gap-2">
-            <Button variant={'noShadow'} onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}>
+            <Button variant={'noShadow'} onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}>
                 <ChevronLeft className="w-4 h-4" />
                 Previous
             </Button>
             <div className="flex items-center gap-2">
                 {Array.from({ length: rememberedTotalPage }, (_, index) => (
-                    <Button onClick={() => onPageChange(index + 1)} key={index} variant={'noShadow'} className={cn(currentPage === index + 1 && 'bg-black text-white')}>
+                    <Button onClick={() => handlePageChange(index + 1)} key={index} variant={'noShadow'} className={cn(currentPage === index + 1 && 'bg-black text-white')}>
                         {index + 1}
                     </Button>
                 ))}
             </div>
-            <Button variant={'noShadow'} onClick={() => currentPage < rememberedTotalPage && onPageChange(currentPage + 1)}>
+            <Button variant={'noShadow'} onClick={() => currentPage < rememberedTotalPage && handlePageChange(currentPage + 1)}>
                 Next
                 <ChevronRight className="w-4 h-4" />
             </Button>
