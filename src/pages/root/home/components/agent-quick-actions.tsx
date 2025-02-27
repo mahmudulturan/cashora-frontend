@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowDownToLine, ArrowUpFromLine, History, Send } from 'lucide-react';
 import { FC } from 'react';
 import { Link } from 'react-router';
+import WithdrawDialog from './withdraw-dialog';
 
 const AgentQuickActions: FC = () => {
     return (
@@ -28,9 +29,7 @@ const AgentQuickActions: FC = () => {
                 <ArrowDownToLine className="w-8 h-8 mb-4" />
                 <h3 className="text-xl font-bold mb-2">Withdraw Request</h3>
                 <p className="mb-4">Request to withdraw excess funds to admin account</p>
-                <Link to="/withdraw-request">
-                    <Button className="w-full">Request Withdraw</Button>
-                </Link>
+                <WithdrawDialog />
             </div>
 
             <div className="card-white p-6">
